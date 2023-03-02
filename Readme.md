@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов (простой)»
 
-* Студент: [Виктория Осипова](https://up.htmlacademy.ru/react/12/user/2072039).
-* Наставник: `Andrey Povstyanko`.
+- Студент: [Виктория Осипова](https://up.htmlacademy.ru/react/12/user/2072039).
+- Наставник: `Andrey Povstyanko`.
 
 ---
 
