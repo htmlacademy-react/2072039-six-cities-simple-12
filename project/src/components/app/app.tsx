@@ -1,6 +1,5 @@
 import { BrowserRouter, Route, Routes } from'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-// import PrivateRoute from '../../components/private-route/private-route';
 
 import { AppRoute } from '../../constants';
 
