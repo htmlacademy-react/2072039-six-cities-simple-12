@@ -1,13 +1,16 @@
-import ItemCard from '../../components/ItemCard/ItemCard';
+import OffersList from '../../components/OffersList/OffersList';
 import Header from '../../components/Header/Header';
 import NavCities from '../../components/NavCities/NavCities';
+
+import { Offers } from '../../types/offers';
 
 
 type MainPageProps = {
   offersCount: number;
+  offers: Offers;
 };
 
-function MainPage({offersCount}: MainPageProps): JSX.Element {
+function MainPage({ offersCount, offers }: MainPageProps): JSX.Element {
   return (
     <>
       <div style={{display: 'none'}}>
@@ -41,44 +44,7 @@ function MainPage({offersCount}: MainPageProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                <ItemCard
-                  isPremium
-                  mainImage="img/apartment-01.jpg"
-                  price={120}
-                  description="Beautiful &amp; luxurious apartment at great location"
-                  type="Apartment"
-                />
-
-                <ItemCard
-                  mainImage="img/room.jpg"
-                  price={80}
-                  description="Wood and stone place"
-                  type="Private room"
-                />
-
-                <ItemCard
-                  mainImage="img/apartment-02.jpg"
-                  price={132}
-                  description="Canal View Prinsengracht"
-                  type="Apartment"
-                />
-
-                <ItemCard
-                  isPremium
-                  mainImage="img/apartment-03.jpg"
-                  price={180}
-                  description="Nice, cozy, warm big bed apartment"
-                  type="Apartment"
-                />
-
-                <ItemCard
-                  mainImage="img/room.jpg"
-                  price={80}
-                  description="Wood and stone place"
-                  type="Private room"
-                />
-              </div>
+              <OffersList offers={offers} />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>

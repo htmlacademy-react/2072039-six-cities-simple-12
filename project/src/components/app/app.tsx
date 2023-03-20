@@ -8,25 +8,28 @@ import NotFoundPage from '../../pages/NotFoundPage/NotFoundPage';
 import LoginPage from'../../pages/LoginPage/LoginPage';
 import RoomPage from'../../pages/RoomPage/RoomPage';
 
+import { Offers } from '../../types/offers';
+
 
 type AppProps = {
   offersCount: number;
+  offers: Offers;
 };
 
-function App({offersCount}: AppProps): JSX.Element {
+function App({offersCount, offers}: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path={AppRoute.Main}
-            element={<MainPage offersCount={offersCount} />}
+            element={<MainPage offersCount={offersCount} offers={offers} />}
           />
           <Route
             path={AppRoute.Login}
             element={<LoginPage />}
           />
-          <Route path={AppRoute.Room} element={<RoomPage />}></Route>
+          <Route path={AppRoute.Room} element={<RoomPage offers={offers} />}></Route>
           <Route
             path="*"
             element={<NotFoundPage />}
