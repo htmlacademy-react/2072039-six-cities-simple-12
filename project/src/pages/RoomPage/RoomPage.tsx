@@ -19,9 +19,9 @@ type OfferItemParams = {
 function RoomPage({ offers }: RoomPageProps) {
   const params = useParams<keyof OfferItemParams>() as OfferItemParams;
   const { id } = params;
-  const offer = offers.find((item) => item.id === id) as Offer;
+  const offer = offers.find((item) => `${item.id}` === id) as Offer;
 
-  // const { id, isPremium, image, price, rating, description, type, roomConfiguration } = offer;
+  // const { id, isPremium, image, price, rating, description, type, bedrooms,  } = offer;
   //console.log(offer);
   return (
     <div className="page">
@@ -91,17 +91,17 @@ function RoomPage({ offers }: RoomPageProps) {
                   <span style={{width: `${offer.rating}`}}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="property__rating-value rating__value">{offer.ratingValue}</span>
+                <span className="property__rating-value rating__value">{offer.rating}</span>
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
                   Apartment
                 </li>
                 <li className="property__feature property__feature--bedrooms">
-                  {offer.roomConfiguration?.bedroomsNumber}
+                  {offer.bedrooms}
                 </li>
                 <li className="property__feature property__feature--adults">
-                  {offer.roomConfiguration?.maxAdults}
+                  {offer.maxAdults}
                 </li>
               </ul>
               <div className="property__price">
@@ -111,27 +111,27 @@ function RoomPage({ offers }: RoomPageProps) {
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
-                  {offer.roomConfiguration?.roomFilling.map((item) => <li className="property__inside-item" key={item}>{item}</li>)}
+                  {offer.goods.map((item) => <li className="property__inside-item" key={item}>{item}</li>)}
                 </ul>
               </div>
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
                   <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="property__avatar user__avatar" src={offer.reviews?.avaUser} width="74" height="74"
+                    <img className="property__avatar user__avatar" src={offer.host.avatarUrl} width="74" height="74"
                       alt="Host avatar"
                     />
                   </div>
                   <span className="property__user-name">
-                    {offer.reviews?.userName}
+                    {offer.host.name}
                   </span>
                   <span className="property__user-status">
-                    {offer.reviews?.userStatus}
+                    {offer.host.isPro}
                   </span>
                 </div>
                 <div className="property__description">
                   <p className="property__text">
-                    {offer.reviews?.text}
+                    {offer.description}
                   </p>
                   <p className="property__text">
                     An independent House, strategically located between Rembrand Square and National Opera, but where
@@ -271,3 +271,17 @@ function RoomPage({ offers }: RoomPageProps) {
 }
 
 export default RoomPage;
+
+
+{/* <Header navigation={<Navigation/>}/>
+
+<main className="page__main page__main--property">
+  <OfferFullInfo offersOpcion={offersOpcion} offers={offers} reviews={reviews} city={city} activeCard={activeCard}/>
+  <div className="container">
+    <section className="near-places places">
+      <h2 className="near-places__title">Other places in the neighbourhood</h2>
+      <OffersList offersOpcion={offersOpcion} onListItemHover={(id) => setActiveCard(id)} selectedPoint={activeCard} classesName={{list:'near-places__list',item:'near-places__card',image:'near-places__image-wrapper'}}></OffersList>
+    </section>
+  </div>
+</main>
+</div> */}

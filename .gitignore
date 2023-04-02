@@ -1,3 +1,6 @@
+/project/node_modules
+/node_modules
+
 project/node_modules/.cache/.eslintcache
 project/node_modules/.cache/tsconfig.tsbuildinfo
 project/node_modules/.cache/babel-loader/bd9bdb3f6e6faeed4623f5c3a3ca2c2776cec635614cb05f9a327c13bfb567df.json

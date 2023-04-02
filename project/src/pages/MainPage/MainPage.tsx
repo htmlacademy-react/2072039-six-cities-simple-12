@@ -1,16 +1,23 @@
+import { useState } from 'react';
+
 import OffersList from '../../components/OffersList/OffersList';
 import Header from '../../components/Header/Header';
 import NavCities from '../../components/NavCities/NavCities';
+import Map from '../../components/Map/Map';
 
 import { Offers } from '../../types/offers';
+import { City } from '../../types/cities';
 
 
 type MainPageProps = {
   offersCount: number;
   offers: Offers;
+  city: City;
 };
 
-function MainPage({ offersCount, offers }: MainPageProps): JSX.Element {
+function MainPage({ offersCount, offers, city }: MainPageProps): JSX.Element {
+  const [activeCard, setActiveCard] = useState<number | null>(null);
+
   return (
     <>
       <div style={{display: 'none'}}>
@@ -44,10 +51,16 @@ function MainPage({ offersCount, offers }: MainPageProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <OffersList offers={offers} />
+              <OffersList
+                offers={offers}
+                onListItemHover={(id) => setActiveCard(Number(id))}
+                selectedPoint={activeCard}
+              />
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map map">
+                <Map offers={offers} city={city} selectedPoint={activeCard} />
+              </section>
             </div>
           </div>
         </div>

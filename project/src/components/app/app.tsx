@@ -9,21 +9,23 @@ import LoginPage from'../../pages/LoginPage/LoginPage';
 import RoomPage from'../../pages/RoomPage/RoomPage';
 
 import { Offers } from '../../types/offers';
+import { City } from '../../types/cities';
 
 
 type AppProps = {
   offersCount: number;
   offers: Offers;
+  city: City;
 };
 
-function App({offersCount, offers}: AppProps): JSX.Element {
+function App({offersCount, offers, city}: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path={AppRoute.Main}
-            element={<MainPage offersCount={offersCount} offers={offers} />}
+            element={<MainPage offersCount={offersCount} offers={offers} city={city} />}
           />
           <Route
             path={AppRoute.Login}

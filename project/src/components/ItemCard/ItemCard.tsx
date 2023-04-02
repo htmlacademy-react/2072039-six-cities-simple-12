@@ -8,11 +8,11 @@ type ItemCardProps = {
   onMouseOverHandler: () => void;
 };
 
-function ItemCard({ offer, onMouseOverHandler }: ItemCardProps): JSX.Element {
-  const { id, isPremium, image, rating, price, description, type } = offer;
+function ItemCard({ offer,onMouseOverHandler }: ItemCardProps): JSX.Element {
+  const { id, isPremium, previewImage, rating, price, description, type } = offer;
 
   return (
-    <article id={id} className="cities__card place-card" onMouseOver={onMouseOverHandler}>
+    <article id={`${id}`} className="cities__card place-card" onMouseOver={onMouseOverHandler}>
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
@@ -20,7 +20,7 @@ function ItemCard({ offer, onMouseOverHandler }: ItemCardProps): JSX.Element {
       )}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={`/offer/${id}`}>
-          <img className="place-card__image" src={image} width="260" height="200" alt="Place image" />
+          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />
         </Link>
       </div>
       <div className="place-card__info">
