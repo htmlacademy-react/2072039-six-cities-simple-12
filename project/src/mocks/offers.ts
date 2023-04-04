@@ -3,89 +3,159 @@ import { Offers } from '../types/offers';
 
 export const offers: Offers = [
   {
-    id: '1',
+    bedrooms: 3,
+    city: {
+      location: {
+        latitude: 52.370216,
+        longitude: 4.895168,
+        zoom: 10
+      },
+      name: 'Amsterdam'
+    },
+    description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+    goods: ['Heating', 'Kitchen', 'Fridge', 'Towels'],
+    host: {
+      avatarUrl: '../img/avatar-max.jpg',
+      id: 1,
+      isPro: true,
+      name: 'Max'
+    },
+    id: 1,
+    images: [
+      '../img/room.jpg',
+      '../img/apartment-01.jpg',
+      '../img/apartment-02.jpg',
+      '../img/apartment-03.jpg',
+      '../img/studio-01.jpg',
+    ],
     isPremium: true,
-    image: '../img/apartment-01.jpg',
+    location: {
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
+      zoom: 8
+    },
+    maxAdults: 6,
+    previewImage: '../img/apartment-01.jpg',
     price: 120,
-    rating: '80%',
-    ratingValue: 4.8,
-    description: 'Beautiful & luxurious apartment at great location',
-    type: 'Apartment',
-    roomConfiguration: {
-      bedroomsNumber: 3,
-      maxAdults: 6,
-      roomFilling: ['WI-FI', 'Heating', 'Kitchen', 'Fridge', 'Towels', 'Coffee machine', 'Baby seat', 'Dishwasher', 'Cabel TV'],
-    },
-    reviews: {
-      avaUser: '../img/avatar-max.jpg',
-      userName: 'Max',
-      userStatus: 'Pro',
-      text: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.',
-      time: 'April 2019',
-    }
+    rating: 4.8,
+    title: 'Beautiful & luxurious studio at great location',
+    type: 'apartment'
   },
   {
-    id: '2',
-    image: '../img/room.jpg',
+    bedrooms: 2,
+    city: {
+      location: {
+        latitude: 52.370216,
+        longitude: 4.895168,
+        zoom: 10
+      },
+      name: 'Amsterdam'
+    },
+    description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+    goods: ['WI-FI', 'Heating', 'Kitchen', 'Fridge'],
+    host: {
+      avatarUrl: '../img/avatar-max.jpg',
+      id: 1,
+      isPro: true,
+      name: 'Max'
+    },
+    id: 2,
+    images: [
+      '../img/room.jpg',
+      '../img/apartment-01.jpg',
+      '../img/apartment-02.jpg',
+      '../img/apartment-03.jpg',
+      '../img/studio-01.jpg',
+    ],
+    isPremium: false,
+    location: {
+      latitude: 52.3609553943508,
+      longitude: 4.85309666406198,
+      zoom: 8
+    },
+    maxAdults: 4,
+    previewImage: '../img/apartment-02.jpg',
     price: 80,
-    rating: '80%',
-    ratingValue: 4.8,
-    description: 'Wood and stone place',
-    type: 'Private room',
-    roomConfiguration: {
-      bedroomsNumber: 3,
-      maxAdults: 6,
-      roomFilling: ['WI-FI', 'Heating', 'Kitchen', 'Fridge'],
-    },
-    reviews: {
-      avaUser: '../img/avatar-max.jpg',
-      userName: 'Max',
-      userStatus: 'New',
-      text: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.',
-      time: 'April 2019',
-    }
+    rating: 4.8,
+    title: 'Wood and stone place',
+    type: 'Private room'
   },
   {
-    id: '3',
-    image: '../img/apartment-02.jpg',
-    price: 132,
-    rating: '80%',
-    ratingValue: 4.8,
-    description: 'Canal View Prinsengracht',
-    type: 'Apartment',
-    roomConfiguration: {
-      bedroomsNumber: 3,
-      maxAdults: 6,
-      roomFilling: ['WI-FI', 'Heating', 'Kitchen', 'Fridge'],
+    bedrooms: 3,
+    city: {
+      location: {
+        latitude: 52.370216,
+        longitude: 4.895168,
+        zoom: 10
+      },
+      name: 'Amsterdam'
     },
-    reviews: {
-      avaUser: '../img/avatar-angelina.jpg',
-      userName: 'Angelina',
-      userStatus: 'Pro',
-      text: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.',
-      time: 'April 2019',
-    }
-  },
-  {
-    id: '4',
+    description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+    goods: ['Wi-Fi', 'Washing machine', 'Towels', 'Heating', 'Coffee machine', 'Baby seat', 'Kitchen', 'Dishwasher', 'Cabel TV', 'Fridge',],
+    host: {
+      avatarUrl: '../img/avatar-angelina.jpg',
+      id: 3,
+      isPro: true,
+      name: 'Angelina'
+    },
+    id: 3,
+    images: [
+      '../img/room.jpg',
+      '../img/apartment-01.jpg',
+      '../img/apartment-02.jpg',
+      '../img/apartment-03.jpg',
+      '../img/studio-01.jpg',
+    ],
     isPremium: true,
-    image: '../img/apartment-03.jpg',
-    price: 180,
-    rating: '100%',
-    ratingValue: 5.0,
-    description: 'Nice, cozy, warm big bed apartment',
-    type: 'Apartment',
-    roomConfiguration: {
-      bedroomsNumber: 3,
-      maxAdults: 6,
-      roomFilling: ['WI-FI', 'Heating', 'Kitchen', 'Fridge'],
+    location: {
+      latitude: 52.3909553943508,
+      longitude: 4.929309666406198,
+      zoom: 8
     },
-    reviews: {
-      avaUser: '../img/avatar-max.jpg',
-      userName: 'Max',
-      userStatus: 'New',
-      text: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.',
-      time: 'April 2019',
-    }
+    maxAdults: 4,
+    previewImage: '../img/apartment-03.jpg',
+    price: 132,
+    rating: 4.8,
+    title: 'Canal View Prinsengracht',
+    type: 'apartment'
+  },
+  {
+    bedrooms: 3,
+    city: {
+      location: {
+        latitude: 52.370216,
+        longitude: 4.895168,
+        zoom: 10
+      },
+      name: 'Amsterdam'
+    },
+    description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+    goods: ['Heating', 'Kitchen', 'Fridge', 'Towels'],
+    host: {
+      avatarUrl: 'img/1.png',
+      id: 3,
+      isPro: true,
+      name: 'Angelina'
+    },
+    id: 4,
+    images: [
+      '../img/room.jpg',
+      '../img/apartment-01.jpg',
+      '../img/apartment-02.jpg',
+      '../img/apartment-03.jpg',
+      '../img/studio-01.jpg',
+    ],
+    isPremium: true,
+    location: {
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198,
+      zoom: 8
+    },
+    maxAdults: 6,
+    previewImage: '../img/apartment-01.jpg',
+    price: 180,
+    rating: 5.0,
+    title: 'Nice, cozy, warm big bed apartment',
+    type: 'apartment'
   },
 ];

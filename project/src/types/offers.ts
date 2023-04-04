@@ -1,23 +1,38 @@
 export type Offer = {
-  id: string;
-  isPremium?: boolean;
-  image: string;
-  price: number;
-  rating: string;
-  ratingValue: number;
+  bedrooms: number;
+  city: {
+    location: {
+      latitude: number;
+      longitude: number;
+      zoom: number;
+    };
+    name: string;
+  };
   description: string;
+  goods: string[];
+  host: {
+    avatarUrl: string;
+    id: number;
+    isPro: boolean;
+    name: string;
+  };
+  id: number;
+  images: string[];
+  isPremium: boolean;
+  location: {
+    latitude: number;
+    longitude: number;
+    zoom: number;
+  };
+  maxAdults: number;
+  previewImage: string;
+  price: number;
+  rating: number;
+  title: string;
   type: string;
-  roomConfiguration?: RoomConfiguration;
-  reviews?: Reviews;
 };
 
 export type Offers = Offer[];
-
-export type RoomConfiguration = {
-  bedroomsNumber: number;
-  maxAdults: number;
-  roomFilling: string[];
-};
 
 export type Reviews = {
   avaUser: string;
