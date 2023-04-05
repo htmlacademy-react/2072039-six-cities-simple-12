@@ -55,22 +55,22 @@ function RoomPage({ offers }: RoomPageProps) {
           <div className="property__gallery-container container">
             <div className="property__gallery">
               <div className="property__image-wrapper">
-                <img className="property__image" src="img/room.jpg" alt="Photo studio"/>
+                <img className="property__image" src="img/room.jpg" alt="img/room.jp"/>
               </div>
               <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-01.jpg" alt="Photo studio"/>
+                <img className="property__image" src="img/apartment-01.jpg" alt="img/apartment-01.jpg"/>
               </div>
               <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-02.jpg" alt="Photo studio"/>
+                <img className="property__image" src="img/apartment-02.jpg" alt="img/apartment-02.jpg"/>
               </div>
               <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-03.jpg" alt="Photo studio"/>
+                <img className="property__image" src="img/apartment-03.jpg" alt="img/apartment-03.jpg"/>
               </div>
               <div className="property__image-wrapper">
-                <img className="property__image" src="img/studio-01.jpg" alt="Photo studio"/>
+                <img className="property__image" src="img/studio-01.jpg" alt="img/studio-01.jpg"/>
               </div>
               <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-01.jpg" alt="Photo studio"/>
+                <img className="property__image" src="img/apartment-01.jpg" alt="img/apartment-01.jpg"/>
               </div>
             </div>
           </div>
@@ -181,7 +181,7 @@ function RoomPage({ offers }: RoomPageProps) {
               <article className="near-places__card place-card">
                 <div className="near-places__image-wrapper place-card__image-wrapper">
                   <Link to="/">
-                    <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt="Place image"/>
+                    <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt="img/room.jpg"/>
                   </Link>
                 </div>
                 <div className="place-card__info">
@@ -208,7 +208,7 @@ function RoomPage({ offers }: RoomPageProps) {
                 <div className="near-places__image-wrapper place-card__image-wrapper">
                   <Link to="/">
                     <img className="place-card__image" src="img/apartment-02.jpg" width="260" height="200"
-                      alt="Place image"
+                      alt="img/apartment-02.jpg"
                     />
                   </Link>
                 </div>
@@ -239,7 +239,7 @@ function RoomPage({ offers }: RoomPageProps) {
                 <div className="near-places__image-wrapper place-card__image-wrapper">
                   <Link to="/">
                     <img className="place-card__image" src="img/apartment-03.jpg" width="260" height="200"
-                      alt="Place image"
+                      alt="img/apartment-03.jpg"
                     />
                   </Link>
                 </div>
@@ -271,17 +271,3 @@ function RoomPage({ offers }: RoomPageProps) {
 }
 
 export default RoomPage;
-
-
-{/* <Header navigation={<Navigation/>}/>
-
-<main className="page__main page__main--property">
-  <OfferFullInfo offersOpcion={offersOpcion} offers={offers} reviews={reviews} city={city} activeCard={activeCard}/>
-  <div className="container">
-    <section className="near-places places">
-      <h2 className="near-places__title">Other places in the neighbourhood</h2>
-      <OffersList offersOpcion={offersOpcion} onListItemHover={(id) => setActiveCard(id)} selectedPoint={activeCard} classesName={{list:'near-places__list',item:'near-places__card',image:'near-places__image-wrapper'}}></OffersList>
-    </section>
-  </div>
-</main>
-</div> */}

@@ -20,7 +20,12 @@ function ItemCard({ offer,onMouseOverHandler }: ItemCardProps): JSX.Element {
       )}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={`/offer/${id}`}>
-          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />
+          <img
+            className="place-card__image"
+            src={previewImage} width="260"
+            height="200"
+            alt={previewImage}
+          />
         </Link>
       </div>
       <div className="place-card__info">
