@@ -1,3 +1,5 @@
+import { cityNames } from '../../constants';
+
 import Header from '../../components/Header/Header';
 import NavCities from '../../components/NavCities/NavCities';
 
@@ -14,7 +16,7 @@ function MainEmptyPage(): JSX.Element {
       <main className="page__main page__main--index page__main--index-empty">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
-          <NavCities />
+          <NavCities cities={cityNames} />
         </div>
         <div className="cities">
           <div className="cities__places-container cities__places-container--empty container">

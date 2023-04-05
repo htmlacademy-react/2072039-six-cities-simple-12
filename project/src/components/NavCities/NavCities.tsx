@@ -1,40 +1,28 @@
-import { Link } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { setCityAction } from '../../store/action';
+
+import Location from '../Location/Location';
 
 
-function NavCities(): JSX.Element {
+type NaveCitiesProps = {
+  cities: string[];
+};
+
+function NavCities({ cities }: NaveCitiesProps): JSX.Element {
+  const dispatch = useAppDispatch();
+  const activeCity = useAppSelector((state) => state.activeCity);
+
   return (
     <section className="locations container">
       <ul className="locations__list tabs__list">
-        <li className="locations__item">
-          <Link className="locations__item-link tabs__item" to="/">
-            <span>Paris</span>
-          </Link>
-        </li>
-        <li className="locations__item">
-          <Link className="locations__item-link tabs__item" to="#">
-            <span>Cologne</span>
-          </Link>
-        </li>
-        <li className="locations__item">
-          <Link className="locations__item-link tabs__item" to="/">
-            <span>Brussels</span>
-          </Link>
-        </li>
-        <li className="locations__item">
-          <Link to="/" className="locations__item-link tabs__item tabs__item--active">
-            <span>Amsterdam</span>
-          </Link>
-        </li>
-        <li className="locations__item">
-          <Link className="locations__item-link tabs__item" to="/">
-            <span>Hamburg</span>
-          </Link>
-        </li>
-        <li className="locations__item">
-          <Link className="locations__item-link tabs__item" to="/">
-            <span>Dusseldorf</span>
-          </Link>
-        </li>
+        {cities.map((city) => (
+          <Location
+            key={city}
+            location={city}
+            isActive={activeCity === city}
+            onClick = {() => dispatch(setCityAction(city))}
+          />
+        ))}
       </ul>
     </section>
   );

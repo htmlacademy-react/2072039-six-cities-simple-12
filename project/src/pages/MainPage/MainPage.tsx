@@ -1,71 +1,71 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
+import { useAppSelector } from '../../hooks';
+
+import { cityNames } from '../../constants';
+
+import MainEmptyPage from '../MainEmptyPage/MainEmptyPage';
 import OffersList from '../../components/OffersList/OffersList';
 import Header from '../../components/Header/Header';
 import NavCities from '../../components/NavCities/NavCities';
+import SortingSelectForm from '../../components/SortingSelectForm/SortingSelectForm';
 import Map from '../../components/Map/Map';
 
-import { Offers } from '../../types/offers';
-import { City } from '../../types/cities';
+import { Offers, Offer } from '../../types/offers';
 
 
-type MainPageProps = {
-  offersCount: number;
-  offers: Offers;
-  city: City;
-};
+const getActiveOffers = (activeCity: string, offers: Offers) => offers.filter((offer) => offer.city.name === activeCity);
 
-function MainPage({ offersCount, offers, city }: MainPageProps): JSX.Element {
+const getCityForMap = (offer: Offer) => offer.city;
+
+function MainPage(): JSX.Element {
+  const offers = useAppSelector((state) => state.offers);
+  const activeCity = useAppSelector((state) => state.activeCity);
+
   const [activeCard, setActiveCard] = useState<number | null>(null);
+  const [activeOffers, setOffers] = useState<Offers>(getActiveOffers(activeCity, offers));
+
+  useEffect(() => {
+    setOffers(getActiveOffers(activeCity, offers));
+  }, [activeCity]);
 
   return (
-    <>
-      <div style={{display: 'none'}}>
-        <svg xmlns="http://www.w3.org/2000/svg"><symbol id="icon-arrow-select" viewBox="0 0 7 4"><path fillRule="evenodd" clipRule="evenodd" d="M0 0l3.5 2.813L7 0v1.084L3.5 4 0 1.084V0z"></path></symbol><symbol id="icon-bookmark" viewBox="0 0 17 18"><path d="M3.993 2.185l.017-.092V2c0-.554.449-1 .99-1h10c.522 0 .957.41.997.923l-2.736 14.59-4.814-2.407-.39-.195-.408.153L1.31 16.44 3.993 2.185z"></path></symbol><symbol id="icon-star" viewBox="0 0 13 12"><path fillRule="evenodd" clipRule="evenodd" d="M6.5 9.644L10.517 12 9.451 7.56 13 4.573l-4.674-.386L6.5 0 4.673 4.187 0 4.573 3.549 7.56 2.483 12 6.5 9.644z"></path></symbol></svg>
-      </div>
-
-      <Header />
-
-      <main className="page__main page__main--index">
-        <h1 className="visually-hidden">Cities</h1>
-        <div className="tabs">
-          <NavCities />
-        </div>
-        <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offersCount} places to stay in Amsterdam</b>
-              <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex={0}>
-                  Popular
-                  <svg className="places__sorting-arrow" width="7" height="4">
-                    <use xlinkHref={'#icon-arrow-select'}></use>
-                  </svg>
-                </span>
-                <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-                  <li className="places__option" tabIndex={0}>Price: low to high</li>
-                  <li className="places__option" tabIndex={0}>Price: high to low</li>
-                  <li className="places__option" tabIndex={0}>Top rated first</li>
-                </ul>
-              </form>
-              <OffersList
-                offers={offers}
-                onListItemHover={(id) => setActiveCard(Number(id))}
-                selectedPoint={activeCard}
-              />
-            </section>
-            <div className="cities__right-section">
-              <section className="cities__map map">
-                <Map offers={offers} city={city} selectedPoint={activeCard} />
+    activeOffers.length > 0 ? (
+      <>
+        <Header />
+        <main className="page__main page__main--index">
+          <h1 className="visually-hidden">Cities</h1>
+          <div className="tabs">
+            <NavCities cities={cityNames} />
+          </div>
+          <div className="cities">
+            <div className="cities__places-container container">
+              <section className="cities__places places">
+                <h2 className="visually-hidden">Places</h2>
+                <b className="places__found">{activeOffers.length} places to stay in {activeCity}</b>
+                <SortingSelectForm />
+                <OffersList
+                  offers={activeOffers}
+                  onListItemHover={(id) => setActiveCard(Number(id))}
+                  selectedPoint={activeCard}
+                />
               </section>
+              <div className="cities__right-section">
+                <section className="cities__map map">
+                  <Map
+                    offers={activeOffers}
+                    city={getCityForMap(activeOffers[0])}
+                    selectedPoint={activeCard}
+                  />
+                </section>
+              </div>
             </div>
           </div>
-        </div>
-      </main>
-    </>
+        </main>
+      </>
+    ) : (
+      <MainEmptyPage />
+    )
   );
 }
 
