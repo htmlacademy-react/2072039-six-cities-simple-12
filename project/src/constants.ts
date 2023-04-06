@@ -25,3 +25,19 @@ export enum SortTypes {
   PRICE_DOWN = 'Price: high to low',
   RATING = 'Top rated first'
 }
+
+export const BACKEND_URL = 'https://12.react.pages.academy/six-cities-simple';
+export const REQUEST_TIMEOUT = 5000;
+export const AUTH_TOKEN_KEY_NAME = 'sixCitiesToken';
+
+export enum AuthStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
+}
+
+export enum APIRoute {
+  Offers = '/hotels',
+  Login = '/login',
+  Logout = '/logout',
+}

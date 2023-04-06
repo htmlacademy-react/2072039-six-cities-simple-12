@@ -9,10 +9,19 @@ import MainPage from '../../pages/MainPage/MainPage';
 import NotFoundPage from '../../pages/NotFoundPage/NotFoundPage';
 import LoginPage from'../../pages/LoginPage/LoginPage';
 import RoomPage from'../../pages/RoomPage/RoomPage';
+import Loader from '../Loader/Loader';
 
 
 function App(): JSX.Element {
   const offers = useAppSelector((state) => state.offers);
+  const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
+
+  if (isOffersLoading) {
+    return (
+      <Loader />
+    );
+  }
+
   return (
     <HelmetProvider>
       <BrowserRouter>
