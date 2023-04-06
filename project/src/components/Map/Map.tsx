@@ -1,5 +1,5 @@
-import { useRef, useEffect } from 'react';
-import { Icon, Marker } from 'leaflet';
+import { useRef, useEffect, useState } from 'react';
+import { FeatureGroup, Icon, Marker } from 'leaflet';
 import useMap from '../../hooks/useMap';
 import { City } from '../../types/cities';
 import { Offers } from '../../types/offers';
@@ -31,23 +31,23 @@ function Map(props: MapProps): JSX.Element {
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
+  const [markersGroup] = useState<FeatureGroup>(new FeatureGroup());
 
   useEffect(() => {
     if (map) {
+      markersGroup.clearLayers();
       offers.forEach((point) => {
         const marker = new Marker({
           lat: point.location.latitude,
           lng: point.location.longitude
         });
 
-        marker
-          .setIcon(
-            point.id === selectedPoint
-              ? currentCustomIcon
-              : defaultCustomIcon
-          )
-          .addTo(map);
+        marker.setIcon(point.id === selectedPoint ? currentCustomIcon : defaultCustomIcon);
+        markersGroup.addLayer(marker);
       });
+
+      markersGroup.addTo(map);
+      map.setView([city.location.latitude, city.location.longitude], city.location.zoom);
     }
   }, [map, offers, selectedPoint]);
 
