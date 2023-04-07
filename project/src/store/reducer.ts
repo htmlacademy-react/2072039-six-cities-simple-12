@@ -18,7 +18,7 @@ type initialStateType = {
   offers: Offers;
   activeCity: string;
   isOffersLoading: boolean;
-  authStatus: AuthStatus;
+  authorizationStatus: AuthStatus;
   user: User | null;
 }
 
@@ -26,14 +26,14 @@ const initialState: initialStateType = {
   offers: [],
   activeCity: cityNames[0],
   isOffersLoading: false,
-  authStatus: AuthStatus.Unknown,
+  authorizationStatus: AuthStatus.Unknown,
   user: null,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(verifyAuthAction, (state, action) => {
-      state.authStatus = action.payload;
+      state.authorizationStatus = action.payload;
     })
     .addCase(setUserAction, (state, action) => {
       state.user = action.payload;
