@@ -6,7 +6,6 @@ import { cityNames } from '../../constants';
 
 import MainEmptyPage from '../MainEmptyPage/MainEmptyPage';
 import OffersList from '../../components/OffersList/OffersList';
-import Header from '../../components/Header/Header';
 import NavCities from '../../components/NavCities/NavCities';
 import SortingSelectForm from '../../components/SortingSelectForm/SortingSelectForm';
 import Map from '../../components/Map/Map';
@@ -31,38 +30,35 @@ function MainPage(): JSX.Element {
 
   return (
     activeOffers.length > 0 ? (
-      <>
-        <Header />
-        <main className="page__main page__main--index">
-          <h1 className="visually-hidden">Cities</h1>
-          <div className="tabs">
-            <NavCities cities={cityNames} />
-          </div>
-          <div className="cities">
-            <div className="cities__places-container container">
-              <section className="cities__places places">
-                <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{activeOffers.length} places to stay in {activeCity}</b>
-                <SortingSelectForm />
-                <OffersList
+      <main className="page__main page__main--index">
+        <h1 className="visually-hidden">Cities</h1>
+        <div className="tabs">
+          <NavCities cities={cityNames} />
+        </div>
+        <div className="cities">
+          <div className="cities__places-container container">
+            <section className="cities__places places">
+              <h2 className="visually-hidden">Places</h2>
+              <b className="places__found">{activeOffers.length} places to stay in {activeCity}</b>
+              <SortingSelectForm />
+              <OffersList
+                offers={activeOffers}
+                onListItemHover={(id) => setActiveCard(Number(id))}
+                selectedPoint={activeCard}
+              />
+            </section>
+            <div className="cities__right-section">
+              <section className="cities__map map">
+                <Map
                   offers={activeOffers}
-                  onListItemHover={(id) => setActiveCard(Number(id))}
+                  city={getCityForMap(activeOffers[0])}
                   selectedPoint={activeCard}
                 />
               </section>
-              <div className="cities__right-section">
-                <section className="cities__map map">
-                  <Map
-                    offers={activeOffers}
-                    city={getCityForMap(activeOffers[0])}
-                    selectedPoint={activeCard}
-                  />
-                </section>
-              </div>
             </div>
           </div>
-        </main>
-      </>
+        </div>
+      </main>
     ) : (
       <MainEmptyPage />
     )
