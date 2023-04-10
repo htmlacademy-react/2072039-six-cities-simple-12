@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom/client';
-import { ToastContainer } from 'react-toastify';
+// import { ToastContainer } from 'react-toastify';
 
 import { checkAuthAction, fetchOffersAction } from './store/apiActions';
 
@@ -21,7 +21,7 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <App />
-      <ToastContainer />
+      {/* <ToastContainer /> */}
     </Provider>
   </React.StrictMode>,
 );

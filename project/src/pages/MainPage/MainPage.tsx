@@ -48,13 +48,12 @@ function MainPage(): JSX.Element {
               />
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map">
-                <Map
-                  offers={activeOffers}
-                  city={getCityForMap(activeOffers[0])}
-                  selectedPoint={activeCard}
-                />
-              </section>
+              <Map
+                offers={activeOffers}
+                city={getCityForMap(activeOffers[0])}
+                selectedPoint={activeCard}
+                className={'cities'}
+              />
             </div>
           </div>
         </div>

@@ -5,10 +5,10 @@ import { Offer } from '../../types/offers';
 
 type ItemCardProps = {
   offer: Offer;
-  onMouseOverHandler: () => void;
+  onMouseOverHandler?: () => void;
 };
 
-function ItemCard({ offer,onMouseOverHandler }: ItemCardProps): JSX.Element {
+function ItemCard({ offer, onMouseOverHandler }: ItemCardProps): JSX.Element {
   const { id, isPremium, previewImage, rating, price, description, type } = offer;
 
   return (
