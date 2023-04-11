@@ -1,15 +1,21 @@
 import { createReducer } from '@reduxjs/toolkit';
 
 import {
-  verifyAuthAction,
-  setUserAction,
-  loadOffersAction,
-  setOffersLoadingStatusAction,
-  setCityAction,
+  verifyAuth,
+  setUser,
+  loadOffers,
+  setOffersLoadingStatus,
+  setCity,
+  loadOffer,
+  setCurrentOfferLoadingStatus,
+  loadNearbyOffers,
+  loadCommentsByOffer,
+  postComment,
 } from './action';
 
-import { Offers } from '../types/offers';
+import { Offers, Offer } from '../types/offers';
 import { User } from '../types/user';
+import { Comments } from '../types/comments';
 
 import { AuthStatus, cityNames } from '../constants';
 
@@ -17,34 +23,59 @@ import { AuthStatus, cityNames } from '../constants';
 type initialStateType = {
   offers: Offers;
   activeCity: string;
-  isOffersLoading: boolean;
   authorizationStatus: AuthStatus;
   user: User | null;
+  offer: Offer | null;
+  nearbyOffers: Offers | null;
+  comments: Comments | null;
+  isOffersLoading: boolean;
+  isOfferLoading: boolean;
+  isCommentPosting: boolean;
 }
 
 const initialState: initialStateType = {
   offers: [],
   activeCity: cityNames[0],
-  isOffersLoading: false,
   authorizationStatus: AuthStatus.Unknown,
   user: null,
+  offer: null,
+  nearbyOffers: [],
+  comments: [],
+  isOffersLoading: false,
+  isOfferLoading: false,
+  isCommentPosting: false,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(verifyAuthAction, (state, action) => {
+    .addCase(verifyAuth, (state, action) => {
       state.authorizationStatus = action.payload;
     })
-    .addCase(setUserAction, (state, action) => {
+    .addCase(setUser, (state, action) => {
       state.user = action.payload;
     })
-    .addCase(loadOffersAction, (state, action) => {
+    .addCase(loadOffers, (state, action) => {
       state.offers = action.payload;
     })
-    .addCase(setOffersLoadingStatusAction, (state, action) => {
+    .addCase(setOffersLoadingStatus, (state, action) => {
       state.isOffersLoading = action.payload;
     })
-    .addCase(setCityAction, (state, action) => {
+    .addCase(setCity, (state, action) => {
       state.activeCity = action.payload;
+    })
+    .addCase(loadOffer, (state, action) => {
+      state.offer = action.payload;
+    })
+    .addCase(setCurrentOfferLoadingStatus, (state, action) => {
+      state.isOfferLoading = action.payload;
+    })
+    .addCase(loadNearbyOffers, (state, action) => {
+      state.nearbyOffers = action.payload;
+    })
+    .addCase(loadCommentsByOffer, (state, action) => {
+      state.comments = action.payload;
+    })
+    .addCase(postComment, (state, action) => {
+      state.comments = action.payload;
     });
 });

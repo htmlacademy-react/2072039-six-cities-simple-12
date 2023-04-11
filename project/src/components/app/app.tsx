@@ -16,7 +16,6 @@ import browserHistory from '../../brouserHistory';
 
 
 function App(): JSX.Element {
-  const offers = useAppSelector((state) => state.offers);
   const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
 
   if (isOffersLoading) {
@@ -36,7 +35,7 @@ function App(): JSX.Element {
             />
             <Route
               path={AppRoute.Room}
-              element={<RoomPage offers={offers} />}
+              element={<RoomPage />}
             />
             <Route
               path="*"

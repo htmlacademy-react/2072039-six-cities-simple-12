@@ -1,121 +1,110 @@
-import { useState, FormEvent, ChangeEvent } from 'react';
+import { useAppSelector, useAppDispatch } from '../../hooks';
+
+import {
+  useState,
+  useRef,
+  Fragment,
+  FormEvent,
+} from 'react';
+
+import {
+  MIN_LENGTH_COMMENT,
+  MAX_LENGTH_COMMENT,
+  STARS_NUMBER,
+} from '../../constants';
+
+import { NewComment } from '../../types/comments';
+
+import { postCommentAction } from '../../store/apiActions';
 
 
-function ReviewForm(): JSX.Element {
-  const [formData, setFormData] = useState({
-    review: '',
-    stars: '0',
-  });
+type ReviewFormProps = {
+  offerId: number;
+};
 
-  function onTextAreaChange(e: ChangeEvent<HTMLTextAreaElement>) {
-    const { value } = e.target;
-    setFormData({ ...formData, stars: value });
-  }
+function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
+  const dispatch = useAppDispatch();
 
-  function onRadioButtonChange(e: ChangeEvent<HTMLInputElement>) {
-    const { value } = e.target;
-    setFormData({ ...formData, review: value });
-  }
+  const isCommentPosting = useAppSelector((state) => state.isCommentPosting);
 
-  function onSubmitHandler(e: FormEvent) {
-    e.preventDefault();
-  }
+  const commentRef = useRef<HTMLTextAreaElement | null>(null);
+
+  const [rating, setRating] = useState(0);
+
+  const ratingValues = Array.from({ length: STARS_NUMBER }, (_, index) => index + 1);
+
+  const onSubmit = (data: NewComment) => {
+    dispatch(postCommentAction(data));
+  };
+
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    if (
+      commentRef.current !== null
+      && commentRef.current.value.length > MIN_LENGTH_COMMENT
+      && commentRef.current.value.length < MAX_LENGTH_COMMENT
+    ) {
+      onSubmit({
+        offerId,
+        comment: commentRef.current.value,
+        rating,
+      });
+      commentRef.current.value = '';
+    }
+  };
 
   return (
     <form
       className="reviews__form form"
       action="#"
       method="post"
-      onSubmit={onSubmitHandler}
+      onSubmit = {handleSubmit}
     >
-      <label className="reviews__label form__label" htmlFor="review">
-        Your review
-      </label>
+      <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
-        <input
-          className="form__rating-input visually-hidden"
-          onChange={onRadioButtonChange}
-          name="rating"
-          value="5"
-          id="5-stars"
-          type="radio"
-        />
-        <label htmlFor="5-stars" className="reviews__rating-label form__rating-label" title="perfect">
-          <svg className="form__star-image" width="37" height="33">
-            <use xlinkHref="#icon-star"></use>
-          </svg>
-        </label>
-
-        <input
-          className="form__rating-input visually-hidden"
-          onChange={onRadioButtonChange}
-          name="rating"
-          value="4"
-          id="4-stars"
-          type="radio"
-        />
-        <label htmlFor="4-stars" className="reviews__rating-label form__rating-label" title="good">
-          <svg className="form__star-image" width="37" height="33">
-            <use xlinkHref="#icon-star"></use>
-          </svg>
-        </label>
-
-        <input
-          className="form__rating-input visually-hidden"
-          onChange={onRadioButtonChange}
-          name="rating"
-          value="3"
-          id="3-stars"
-          type="radio"
-        />
-        <label htmlFor="3-stars" className="reviews__rating-label form__rating-label" title="not bad">
-          <svg className="form__star-image" width="37" height="33">
-            <use xlinkHref="#icon-star"></use>
-          </svg>
-        </label>
-
-        <input
-          className="form__rating-input visually-hidden"
-          onChange={onRadioButtonChange}
-          name="rating"
-          value="2"
-          id="2-stars"
-          type="radio"
-        />
-        <label htmlFor="2-stars" className="reviews__rating-label form__rating-label" title="badly">
-          <svg className="form__star-image" width="37" height="33">
-            <use xlinkHref="#icon-star"></use>
-          </svg>
-        </label>
-
-        <input
-          className="form__rating-input visually-hidden"
-          onChange={onRadioButtonChange}
-          name="rating"
-          value="1"
-          id="1-star"
-          type="radio"
-        />
-        <label htmlFor="1-star" className="reviews__rating-label form__rating-label" title="terribly">
-          <svg className="form__star-image" width="37" height="33">
-            <use xlinkHref="#icon-star"></use>
-          </svg>
-        </label>
+        {ratingValues.reverse().map((value: number) => (
+          <Fragment key={value}>
+            <input
+              className="form__rating-input visually-hidden"
+              name="rating"
+              value={value}
+              id={`${value}-stars`}
+              type="radio"
+              onChange={() => setRating(value)}
+            />
+            <label
+              htmlFor={`${value}-stars`}
+              className="reviews__rating-label form__rating-label"
+              title="perfect"
+            >
+              <svg className="form__star-image" width="37" height="33">
+                <use xlinkHref="#icon-star"></use>
+              </svg>
+            </label>
+          </Fragment>
+        ))}
       </div>
       <textarea
         className="reviews__textarea form__textarea"
-        onChange={onTextAreaChange}
-        id="review"
-        name="review"
+        id="comment"
+        name="comment"
+        ref={commentRef}
         placeholder="Tell how was your stay, what you like and what can be improved"
-      >
-      </textarea>
+      />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
-          To submit review please make sure to set <span className="reviews__star">rating</span> and describe
-          your stay with at least <b className="reviews__text-amount">50 characters</b>.
+          To submit review please make sure to set
+          <span className="reviews__star">rating</span>
+          and describe your stay with at least
+          <b className="reviews__text-amount">{MIN_LENGTH_COMMENT} characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit">Submit</button>
+        <button
+          className="reviews__submit form__submit button"
+          type="submit"
+          disabled={isCommentPosting}
+        >
+          Submit
+        </button>
       </div>
     </form>
   );

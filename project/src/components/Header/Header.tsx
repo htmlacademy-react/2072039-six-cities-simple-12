@@ -1,5 +1,5 @@
 import Logo from '../Logo/Logo';
-import Navigation from '../AuthorizationPanel/AuthorizationPanel';
+import AuthorizationPanel from '../AuthorizationPanel/AuthorizationPanel';
 
 
 function Header(): JSX.Element {
@@ -10,7 +10,7 @@ function Header(): JSX.Element {
           <div className="header__left">
             <Logo />
           </div>
-          <Navigation />
+          <AuthorizationPanel />
         </div>
       </div>
     </header>

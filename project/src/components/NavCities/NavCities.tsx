@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { setCityAction } from '../../store/action';
+import { setCity } from '../../store/action';
 
 import Location from '../Location/Location';
 
@@ -20,7 +20,7 @@ function NavCities({ cities }: NaveCitiesProps): JSX.Element {
             key={city}
             location={city}
             isActive={activeCity === city}
-            onClick = {() => dispatch(setCityAction(city))}
+            onClick = {() => dispatch(setCity(city))}
           />
         ))}
       </ul>

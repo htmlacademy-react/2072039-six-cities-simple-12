@@ -14,6 +14,7 @@ function AuthorizationPanel() {
   const user = useAppSelector((state) => state.user);
 
   const handleLogout = (evt: React.MouseEvent<HTMLElement>) => {
+    evt.preventDefault();
     dispatch(logoutAction());
   };
 
