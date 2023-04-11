@@ -1,15 +1,16 @@
 import { createReducer } from '@reduxjs/toolkit';
 
 import {
-  verifyAuthAction,
-  setUserAction,
-  loadOffersAction,
-  setOffersLoadingStatusAction,
-  setCityAction,
+  verifyAuth,
+  setUser,
+  loadOffers,
+  setOffersLoadingStatus,
+  setCity,
   loadOffer,
   setCurrentOfferLoadingStatus,
   loadNearbyOffers,
   loadCommentsByOffer,
+  postComment,
 } from './action';
 
 import { Offers, Offer } from '../types/offers';
@@ -47,19 +48,19 @@ const initialState: initialStateType = {
 
 export const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(verifyAuthAction, (state, action) => {
+    .addCase(verifyAuth, (state, action) => {
       state.authorizationStatus = action.payload;
     })
-    .addCase(setUserAction, (state, action) => {
+    .addCase(setUser, (state, action) => {
       state.user = action.payload;
     })
-    .addCase(loadOffersAction, (state, action) => {
+    .addCase(loadOffers, (state, action) => {
       state.offers = action.payload;
     })
-    .addCase(setOffersLoadingStatusAction, (state, action) => {
+    .addCase(setOffersLoadingStatus, (state, action) => {
       state.isOffersLoading = action.payload;
     })
-    .addCase(setCityAction, (state, action) => {
+    .addCase(setCity, (state, action) => {
       state.activeCity = action.payload;
     })
     .addCase(loadOffer, (state, action) => {
@@ -72,6 +73,9 @@ export const reducer = createReducer(initialState, (builder) => {
       state.nearbyOffers = action.payload;
     })
     .addCase(loadCommentsByOffer, (state, action) => {
+      state.comments = action.payload;
+    })
+    .addCase(postComment, (state, action) => {
       state.comments = action.payload;
     });
 });

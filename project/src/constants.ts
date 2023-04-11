@@ -41,7 +41,7 @@ export const AUTH_TOKEN_KEY_NAME = 'sixCitiesToken';
 export const MAX_NUMBER_IMAGES = 6;
 export const COMMENTS_COUNT = 10;
 
-export const MIN_LENGTH_COMMENT = 50;
+export const MIN_LENGTH_COMMENT = 10;
 export const MAX_LENGTH_COMMENT = 300;
 export const STARS_NUMBER = 5;
 

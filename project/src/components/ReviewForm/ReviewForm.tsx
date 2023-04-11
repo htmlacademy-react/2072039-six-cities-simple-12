@@ -49,6 +49,7 @@ function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
         comment: commentRef.current.value,
         rating,
       });
+      commentRef.current.value = '';
     }
   };
 
@@ -89,7 +90,6 @@ function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
         name="comment"
         ref={commentRef}
         placeholder="Tell how was your stay, what you like and what can be improved"
-        // onChange={onReviewChangeHandle}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">

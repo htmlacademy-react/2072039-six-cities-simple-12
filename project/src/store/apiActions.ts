@@ -4,16 +4,17 @@ import { AxiosInstance } from 'axios';
 import { APIRoute, AppRoute, AuthStatus } from '../constants';
 
 import {
-  verifyAuthAction,
-  setUserAction,
-  loadOffersAction,
-  setOffersLoadingStatusAction,
-  redirectToRouteAction,
+  verifyAuth,
+  setUser,
+  loadOffers,
+  setOffersLoadingStatus,
+  redirectToRoute,
   loadOffer,
   loadNearbyOffers,
   loadCommentsByOffer,
   setCurrentOfferLoadingStatus,
   setPostCommentStatusLoding,
+  postComment,
 } from './action';
 
 import { saveToken, dropToken } from '../services/token';
@@ -25,17 +26,17 @@ import { User } from '../types/user';
 import { Comments, NewComment } from '../types/comments';
 
 
-export const fetchOffersAction = createAsyncThunk<void, undefined, {
+export const loadOffersAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'data/fetchOffers',
   async (_arg, { dispatch, extra: api }) => {
-    dispatch(setOffersLoadingStatusAction(true));
+    dispatch(setOffersLoadingStatus(true));
     const {data} = await api.get<Offers>(APIRoute.Offers);
-    dispatch(setOffersLoadingStatusAction(false));
-    dispatch(loadOffersAction(data));
+    dispatch(setOffersLoadingStatus(false));
+    dispatch(loadOffers(data));
   },
 );
 
@@ -48,10 +49,10 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
   async (_arg, { dispatch, extra: api }) => {
     try {
       const {data: user} = await api.get<User>(APIRoute.Login);
-      dispatch(setUserAction(user));
-      dispatch(verifyAuthAction(AuthStatus.Auth));
+      dispatch(setUser(user));
+      dispatch(verifyAuth(AuthStatus.Auth));
     } catch {
-      dispatch(verifyAuthAction(AuthStatus.NoAuth));
+      dispatch(verifyAuth(AuthStatus.NoAuth));
     }
   },
 );
@@ -65,9 +66,9 @@ export const loginAction = createAsyncThunk<void, AuthData, {
   async ({ login: email, password }, {dispatch, extra: api}) => {
     const {data: user} = await api.post<User>(APIRoute.Login, { email, password });
     saveToken(user.token);
-    dispatch(verifyAuthAction(AuthStatus.Auth));
-    dispatch(setUserAction(user));
-    dispatch(redirectToRouteAction(AppRoute.Main));
+    dispatch(verifyAuth(AuthStatus.Auth));
+    dispatch(setUser(user));
+    dispatch(redirectToRoute(AppRoute.Main));
   },
 );
 
@@ -80,8 +81,8 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   async (_arg, { dispatch, extra: api }) => {
     await api.delete(APIRoute.Logout);
     dropToken();
-    dispatch(setUserAction(null));
-    dispatch(verifyAuthAction(AuthStatus.NoAuth));
+    dispatch(setUser(null));
+    dispatch(verifyAuth(AuthStatus.NoAuth));
   },
 );
 
@@ -98,7 +99,7 @@ export const loadOfferAction = createAsyncThunk<void, number, {
       dispatch(loadOffer(data));
       dispatch(setCurrentOfferLoadingStatus(false));
     } catch {
-      dispatch(redirectToRouteAction(AppRoute.PageNotFound));
+      dispatch(redirectToRoute(AppRoute.PageNotFound));
     }
   },
 );
@@ -137,7 +138,7 @@ export const postCommentAction = createAsyncThunk<void, NewComment, {
     try {
       dispatch(setPostCommentStatusLoding(true));
       const {data} = await api.post<Comments>(`${APIRoute.Comments}/${offerId}`, {comment, rating});
-      dispatch(loadCommentsByOffer(data));
+      dispatch(postComment(data));
     } finally {
       dispatch(setPostCommentStatusLoding(true));
     }
