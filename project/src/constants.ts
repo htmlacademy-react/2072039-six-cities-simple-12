@@ -14,12 +14,26 @@ export const cityNames = [
   'Dusseldorf',
 ];
 
-export enum SortTypes {
-  DEFAULT = 'Popular',
-  PRICE_UP = 'Price: low to high',
-  PRICE_DOWN = 'Price: high to low',
-  RATING = 'Top rated first'
-}
+export const defaultCity = 'Paris';
+
+export const sortList = {
+  DEFAULT: {
+    label: 'Popular',
+    value: 'default',
+  },
+  PRICE_HIGH: {
+    label: 'Price: high to low',
+    value: 'price',
+  },
+  PRICE_LOW: {
+    label: 'Price: low to high',
+    value: '-price',
+  },
+  RATING: {
+    label: 'Top rated first',
+    value: 'rating',
+  },
+};
 
 export enum AuthStatus {
   Auth = 'AUTH',
@@ -33,6 +47,20 @@ export enum APIRoute {
   Logout = '/logout',
   Comments = '/comments',
   Offer = '/hotels',
+}
+
+export enum NameSpace {
+  User = 'USER',
+  Offers = 'OFFERS',
+  Offer = 'OFFER',
+  RoomInfo = 'ROOM_INFO',
+}
+
+export enum Status {
+  Idle = 'idle',
+  Loading = 'loading',
+  Success = 'success',
+  Error = 'error',
 }
 
 export const BACKEND_URL = 'https://12.react.pages.academy/six-cities-simple';

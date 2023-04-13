@@ -3,7 +3,9 @@ import { HelmetProvider } from 'react-helmet-async';
 
 import { useAppSelector } from '../../hooks';
 
-import { AppRoute } from '../../constants';
+import { AppRoute, Status } from '../../constants';
+
+import { getIsOffersLoading } from '../../store/offers/selectors';
 
 import Layout from './layout';
 import MainPage from '../../pages/MainPage/MainPage';
@@ -16,9 +18,9 @@ import browserHistory from '../../brouserHistory';
 
 
 function App(): JSX.Element {
-  const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
+  const isOffersLoading = useAppSelector(getIsOffersLoading);
 
-  if (isOffersLoading) {
+  if (isOffersLoading === Status.Loading) {
     return (
       <Loader />
     );

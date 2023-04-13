@@ -1,4 +1,7 @@
-import { useAppSelector, useAppDispatch } from '../../hooks';
+import {
+  // useAppSelector,
+  useAppDispatch,
+} from '../../hooks';
 
 import {
   useState,
@@ -13,6 +16,8 @@ import {
   STARS_NUMBER,
 } from '../../constants';
 
+// import { getIsCommentPosting } from '../../store/roomInfo/selectors';
+
 import { NewComment } from '../../types/comments';
 
 import { postCommentAction } from '../../store/apiActions';
@@ -25,7 +30,7 @@ type ReviewFormProps = {
 function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
   const dispatch = useAppDispatch();
 
-  const isCommentPosting = useAppSelector((state) => state.isCommentPosting);
+  // const isCommentPosting = useAppSelector(getIsCommentPosting);
 
   const commentRef = useRef<HTMLTextAreaElement | null>(null);
 
@@ -49,6 +54,7 @@ function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
         comment: commentRef.current.value,
         rating,
       });
+      commentRef.current.value = '';
     }
   };
 
@@ -89,7 +95,6 @@ function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
         name="comment"
         ref={commentRef}
         placeholder="Tell how was your stay, what you like and what can be improved"
-        // onChange={onReviewChangeHandle}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -101,7 +106,7 @@ function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={isCommentPosting}
+          // disabled={isCommentPosting}
         >
           Submit
         </button>

@@ -4,20 +4,18 @@ import{ Offers, Offer } from '../types/offers';
 import { User } from '../types/user';
 import { Comments } from '../types/comments';
 
-import { AppRoute, AuthStatus } from '../constants';
+import { AppRoute } from '../constants';
 
 
-export const verifyAuthAction = createAction<AuthStatus>('isAuth/check');
+export const setUser = createAction<User | null>('user/set');
 
-export const setUserAction = createAction<User | null>('user/set');
+export const loadOffers = createAction<Offers>('offers/load');
 
-export const loadOffersAction = createAction<Offers>('offers/load');
+export const setOffersLoadingStatus = createAction<boolean>('isOffersLoading/set');
 
-export const setOffersLoadingStatusAction = createAction<boolean>('isOffersLoading/set');
+export const setCity = createAction<string>('activeCity/set');
 
-export const setCityAction = createAction<string>('activeCity/set');
-
-export const redirectToRouteAction = createAction<AppRoute>('app/redirectToRoute');
+export const redirectToRoute = createAction<AppRoute>('app/redirectToRoute');
 
 export const loadOffer = createAction<Offer>('offer/load');
 
