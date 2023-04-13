@@ -1,7 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom/client';
-// import { ToastContainer } from 'react-toastify';
 
 import { checkAuthAction, loadOffersAction } from './store/apiActions';
 
@@ -20,7 +19,6 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      {/* <ToastContainer /> */}
       <App />
     </Provider>
   </React.StrictMode>,
