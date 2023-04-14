@@ -1,67 +1,46 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { FormEvent, useState, useRef } from 'react';
 import cn from 'classnames';
 
 import { useAppDispatch } from '../../hooks';
 
 import { loginAction } from '../../store/apiActions';
 
+import { AuthData } from '../../types/authData';
+
 import styles from './login.module.css';
 
 
-type Field = {
-  value: string;
-  regex: RegExp;
-  error: boolean;
-  errorText: string;
-}
-
 const LoginForm = () => {
-  const emailRegexp = /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i;
-  const passwordRegexp = /^\S*$/;
-
-  const formFields:Record<string, string> = {
-    email: 'E-mail',
-    password: 'Password',
-  };
-
-  const [formData, setFormData] = useState<Record<string, Field>>({
-    email: {
-      value: '',
-      error: false,
-      regex: emailRegexp,
-      errorText: 'Email is incorrect'
-    },
-    password: {
-      value: '',
-      error: false,
-      regex: passwordRegexp,
-      errorText: 'Password must not contain spaces'
-    },
-  });
-
   const dispatch = useAppDispatch();
 
-  const isFieldsGroupValid = Object.values(formData).some((value) => value.error);
+  const loginRef = useRef<HTMLInputElement | null>(null);
+  const passwordRef = useRef<HTMLInputElement | null>(null);
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+  const [passwordError, setPasswordError] = useState(false);
 
-    setFormData({
-      ...formData,
-      [name]: {
-        ...formData[name],
-        error: !formData[name].regex.test(value),
-        value: value,
-      }
-    });
+  const isPasswordValidate = (password: string): boolean => {
+    const regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{2,}$/g;
+    return regex.test(password);
+  };
+
+  const onSubmit = (authData: AuthData) => {
+    dispatch(loginAction(authData));
   };
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    dispatch(loginAction({
-      login: formData.email.value,
-      password: formData.password.value,
-    }));
+
+    if (loginRef.current !== null && passwordRef.current !== null) {
+      if (isPasswordValidate(passwordRef.current.value)) {
+        onSubmit({
+          login: loginRef.current.value,
+          password: passwordRef.current.value,
+        });
+        setPasswordError(false);
+      } else {
+        setPasswordError(true);
+      }
+    }
   };
 
   return (
@@ -71,28 +50,38 @@ const LoginForm = () => {
       onSubmit={handleSubmit}
       method="post"
     >
-      {Object.entries(formFields).map(([name, label]) => (
-        <div key={name} className="login__input-wrapper form__input-wrapper">
-          <label className="visually-hidden">{label}</label>
+      <div className="login__input-wrapper form__input-wrapper">
+        <label className="visually-hidden">E-mail</label>
+        <input
+          ref={loginRef}
+          className="login__input form__input"
+          type="email"
+          name="email"
+          placeholder="Email"
+          required
+        />
+      </div>
+      <div className="login__input-wrapper form__input-wrapper">
+        <label className="visually-hidden">Password</label>
+        {passwordError && (
           <div className={styles.error}>
-            {formData[name].error && (
-              <div className={styles.error}>{formData[name].errorText}</div>
-            )}
+            <div className={styles.error}>
+              Password must contain at least 1 number and 1 letter
+            </div>
           </div>
-          <input className={cn('login__input form__input', { [styles.inputError]: formData[name].error })}
-            type={name}
-            name={name}
-            value={formData[name].value}
-            onChange={handleInputChange}
-            placeholder={label}
-            required
-          />
-        </div>
-      ))}
+        )}
+        <input
+          className={cn('login__input form__input', { [styles.inputError]: passwordError })}
+          type="password"
+          name="password"
+          ref={passwordRef}
+          placeholder="Password"
+          required
+        />
+      </div>
 
       <button
         className="login__submit form__submit button"
-        disabled={isFieldsGroupValid}
         type="submit"
       >Sign in
       </button>
