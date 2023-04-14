@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { useAppSelector, useAppDispatch, } from '../../hooks';
@@ -63,4 +64,4 @@ function AuthorizationPanel() {
   );
 }
 
-export default AuthorizationPanel;
+export default React.memo(AuthorizationPanel);

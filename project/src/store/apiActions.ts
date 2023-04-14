@@ -1,6 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
-// import { toast } from 'react-toastify';
 
 import { APIRoute, AppRoute } from '../constants';
 
@@ -22,13 +21,8 @@ export const loadOffersAction = createAsyncThunk<Offers, undefined, {
 }>(
   'offers/load',
   async (_arg, { dispatch, extra: api }) => {
-    // try {
     const { data } = await api.get<Offers>(APIRoute.Offers);
     return data;
-    // } catch (e) {
-    //   toast.error('Failed get offers');
-    //   throw e;
-    // }
   }
 );
 

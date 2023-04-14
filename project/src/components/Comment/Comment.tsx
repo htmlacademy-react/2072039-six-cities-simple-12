@@ -1,5 +1,7 @@
+import { useMemo } from 'react';
 import { Comment } from '../../types/comments';
 import { getPersentsFromNumber } from '../../utils/getPersentsFromNumber';
+
 
 type CommentProps = {
   comment: Comment;
@@ -8,7 +10,7 @@ type CommentProps = {
 function CommentItem({ comment }: CommentProps): JSX.Element {
   const { date, user } = comment;
   const itemDate = new Date(date);
-  const monthName = itemDate.toLocaleString('en-EN', { month: 'long' });
+  const monthName = useMemo(() => (itemDate.toLocaleString('en-EN', { month: 'long' })), []);
 
   return (
     <li className="reviews__item">

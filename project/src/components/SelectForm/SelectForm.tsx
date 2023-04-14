@@ -17,8 +17,10 @@ type SelectFormProps = {
 
 const SelectForm = ({ select }: SelectFormProps): JSX.Element => {
   const ref = useRef<HTMLUListElement>(null);
-  const [open, setOpen] = useState(false);
+
   const dispatch = useDispatch();
+
+  const [open, setOpen] = useState(false);
 
   const onSortItemClick = ( name: string, sortItem: SortingOption): void => {
     setOpen(false);

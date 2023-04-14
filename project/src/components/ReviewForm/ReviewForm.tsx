@@ -1,7 +1,4 @@
-import {
-  // useAppSelector,
-  useAppDispatch,
-} from '../../hooks';
+import { useAppDispatch } from '../../hooks';
 
 import {
   useState,
@@ -16,8 +13,6 @@ import {
   STARS_NUMBER,
 } from '../../constants';
 
-// import { getIsCommentPosting } from '../../store/roomInfo/selectors';
-
 import { NewComment } from '../../types/comments';
 
 import { postCommentAction } from '../../store/apiActions';
@@ -29,8 +24,6 @@ type ReviewFormProps = {
 
 function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
   const dispatch = useAppDispatch();
-
-  // const isCommentPosting = useAppSelector(getIsCommentPosting);
 
   const commentRef = useRef<HTMLTextAreaElement | null>(null);
 
