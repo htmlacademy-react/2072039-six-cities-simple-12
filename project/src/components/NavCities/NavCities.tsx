@@ -1,4 +1,5 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
+
 import { setCity } from '../../store/offers/offersSlice';
 
 import { getActiveCity } from '../../store/offers/selectors';

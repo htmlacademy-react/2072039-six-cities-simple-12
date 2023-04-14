@@ -37,7 +37,7 @@ function MainPage(): JSX.Element {
 
   useEffect(() => {
     setOffers(getActiveOffers(activeCity, offers));
-  }, [activeCity]);
+  }, [activeCity]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     sortedOffers.length > 0 ? (

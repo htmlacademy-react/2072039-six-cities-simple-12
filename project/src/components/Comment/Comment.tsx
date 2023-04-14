@@ -10,7 +10,7 @@ type CommentProps = {
 function CommentItem({ comment }: CommentProps): JSX.Element {
   const { date, user } = comment;
   const itemDate = new Date(date);
-  const monthName = useMemo(() => (itemDate.toLocaleString('en-EN', { month: 'long' })), []);
+  const monthName = useMemo(() => (itemDate.toLocaleString('en-EN', { month: 'long' })), []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <li className="reviews__item">
