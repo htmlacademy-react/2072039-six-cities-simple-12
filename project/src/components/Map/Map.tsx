@@ -50,7 +50,7 @@ function Map(props: MapProps): JSX.Element {
       markersGroup.addTo(map);
       map.setView([city.location.latitude, city.location.longitude], city.location.zoom);
     }
-  }, [map, offers, selectedPoint]);
+  }, [map, offers, selectedPoint]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return <section ref={mapRef} className={`${className}__map map`}></section>;
 }

@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 
+import { getPersentsFromNumber } from '../../utils/getPersentsFromNumber';
+
 import { Offer } from '../../types/offers';
 
 
@@ -12,7 +14,11 @@ function ItemCard({ offer, onMouseOverHandler }: ItemCardProps): JSX.Element {
   const { id, isPremium, previewImage, rating, price, description, type } = offer;
 
   return (
-    <article id={`${id}`} className="cities__card place-card" onMouseOver={onMouseOverHandler}>
+    <article
+      id={`${id}`}
+      className="cities__card place-card"
+      onMouseOver={onMouseOverHandler}
+    >
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
@@ -37,7 +43,7 @@ function ItemCard({ offer, onMouseOverHandler }: ItemCardProps): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${rating}`}}></span>
+            <span style={{ width: `${getPersentsFromNumber(rating)}` }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

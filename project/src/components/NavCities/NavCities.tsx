@@ -1,5 +1,8 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { setCity } from '../../store/action';
+
+import { setCity } from '../../store/offers/offersSlice';
+
+import { getActiveCity } from '../../store/offers/selectors';
 
 import Location from '../Location/Location';
 
@@ -10,7 +13,7 @@ type NaveCitiesProps = {
 
 function NavCities({ cities }: NaveCitiesProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const activeCity = useAppSelector((state) => state.activeCity);
+  const activeCity = useAppSelector(getActiveCity);
 
   return (
     <section className="locations container">

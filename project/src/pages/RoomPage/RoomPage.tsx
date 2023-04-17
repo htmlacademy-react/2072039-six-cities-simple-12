@@ -11,6 +11,7 @@ import {
   MAX_NUMBER_IMAGES,
   AuthStatus,
   COMMENTS_COUNT,
+  Status,
 } from '../../constants';
 
 import {
@@ -18,6 +19,10 @@ import {
   loadOfferAction,
   loadRoomCommentsAction,
 } from '../../store/apiActions';
+
+import { getAuthorizationStatus } from '../../store/user/selectors';
+import { getIsOfferLoading, getOffer } from '../../store/offer/selectors';
+import { getNearbyOffers, getComments } from '../../store/roomInfo/selectors';
 
 import ReviewForm from '../../components/ReviewForm/ReviewForm';
 import Map from '../../components/Map/Map';
@@ -32,154 +37,159 @@ function RoomPage() {
   const { id } = useParams();
   const offerId = Number(id);
 
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const isOfferLoading = useAppSelector((state) => state.isOfferLoading);
-
-  const [activeCard, setActiveCard] = useState<number | null>(null);
-
   useEffect(() => {
     dispatch(loadOfferAction(offerId));
     dispatch(loadRoomCommentsAction(offerId));
     dispatch(loadNearOffersAction(offerId));
   }, [dispatch, offerId]);
 
-  const comments = useAppSelector((state) => state.comments);
-  const nearbyOffers = useAppSelector((state) => state.nearbyOffers);
-  const offer = useAppSelector((state) => state.offer);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isOfferLoading = useAppSelector(getIsOfferLoading);
+  const comments = useAppSelector(getComments);
+  const nearbyOffers = useAppSelector(getNearbyOffers);
+  const offer = useAppSelector(getOffer);
 
-  if (isOfferLoading) {
-    return <Loader />;
-  }
+  const [activeCard, setActiveCard] = useState<number | null>(null);
 
-  if (!offerId) {
+  if (isOfferLoading === Status.Error) {
     return <Navigate to={AppRoute.PageNotFound} replace />;
   }
 
   return (
-    <div className="page">
-      <Helmet>
-        <title>Six cities. Nice option.</title>
-      </Helmet>
-      <main className="page__main page__main--property">
-        <section className="property">
-          <div className="property__gallery-container container">
-            <div className="property__gallery">
-              {offer?.images
-                .slice(0, MAX_NUMBER_IMAGES)
-                .map((photoUrl) => (
-                  <div className="property__image-wrapper" key={photoUrl}>
-                    <img className="property__image" src={photoUrl} alt={`${photoUrl}`} />
-                  </div>
-                ))}
-            </div>
-          </div>
-          <div className="property__container container">
-            <div className="property__wrapper">
-              {offer?.isPremium && (
-                <div className="property__mark">
-                  <span>Premium</span>
-                </div>
-              )}
-              <div className="property__name-wrapper">
-                <h1 className="property__name">
-                  {offer?.description}
-                </h1>
-              </div>
-              <div className="property__rating rating">
-                <div className="property__stars rating__stars">
-                  <span style={{width: offer ? `${getPersentsFromNumber(offer?.rating)}` : '0'}}></span>
-                  <span className="visually-hidden">Rating</span>
-                </div>
-                <span className="property__rating-value rating__value">{offer?.rating}</span>
-              </div>
-              <ul className="property__features">
-                <li className="property__feature property__feature--entire">
-                  Apartment
-                </li>
-                <li className="property__feature property__feature--bedrooms">
-                  {offer?.bedrooms}
-                </li>
-                <li className="property__feature property__feature--adults">
-                  {offer?.maxAdults}
-                </li>
-              </ul>
-              <div className="property__price">
-                <b className="property__price-value">&euro;{offer?.price}</b>
-                <span className="property__price-text">&nbsp;night</span>
-              </div>
-              <div className="property__inside">
-                <h2 className="property__inside-title">What&apos;s inside</h2>
-                <ul className="property__inside-list">
-                  {offer?.goods.map((item) => <li className="property__inside-item" key={item}>{item}</li>)}
-                </ul>
-              </div>
-              <div className="property__host">
-                <h2 className="property__host-title">Meet the host</h2>
-                <div className="property__host-user user">
-                  <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="property__avatar user__avatar"
-                      src={offer?.host.avatarUrl}
-                      width="74"
-                      height="74"
-                      alt="Host avatar"
-                    />
-                  </div>
-                  <span className="property__user-name">
-                    {offer?.host.name}
-                  </span>
-                  <span className="property__user-status">
-                    {offer?.host.isPro}
-                  </span>
-                </div>
-                <div className="property__description">
-                  <p className="property__text">
-                    {offer?.description}
-                  </p>
-                  <p className="property__text">
-                    An independent House, strategically located between Rembrand Square and National Opera, but where
-                    the bustle of the city comes to rest in this alley flowery and colorful.
-                  </p>
+    isOfferLoading === Status.Loading
+      ? <Loader />
+      : (
+        <div className="page">
+          <Helmet>
+            <title>Six cities. Nice option.</title>
+          </Helmet>
+          <main className="page__main page__main--property">
+            <section className="property">
+              <div className="property__gallery-container container">
+                <div className="property__gallery">
+                  {offer?.images
+                    .slice(0, MAX_NUMBER_IMAGES)
+                    .map((photoUrl) => (
+                      <div className="property__image-wrapper" key={photoUrl}>
+                        <img className="property__image" src={photoUrl} alt={`${photoUrl}`} />
+                      </div>
+                    ))}
                 </div>
               </div>
-              <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments?.length}</span></h2>
-                <ul className="reviews__list">
-                  {comments && comments.length > 0 && (
-                    Array.from(comments)
-                      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-                      .slice(0, COMMENTS_COUNT)
-                      .map((item) => <Comment key={item.id} comment={item} />)
+              <div className="property__container container">
+                <div className="property__wrapper">
+                  {offer?.isPremium && (
+                    <div className="property__mark">
+                      <span>Premium</span>
+                    </div>
                   )}
-                </ul>
-                {authorizationStatus === AuthStatus.Auth && <ReviewForm offerId={offerId} />}
-              </section>
-            </div>
-          </div>
-          {nearbyOffers && offer && (
-            <Map
-              offers={nearbyOffers.concat(offer)}
-              selectedPoint={offerId}
-              city={offer.city}
-              className={'property'}
-            />
-          )}
-        </section>
-        <div className="container">
-          <section className="near-places places">
-            <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <div className="near-places__list places__list">
-              {nearbyOffers && (
-                <OffersList
-                  offers={nearbyOffers}
-                  onListItemHover={(i) => setActiveCard(Number(i))}
-                  selectedPoint={activeCard}
+                  <div className="property__name-wrapper">
+                    <h1 className="property__name">
+                      {offer?.description}
+                    </h1>
+                  </div>
+                  <div className="property__rating rating">
+                    <div className="property__stars rating__stars">
+                      <span style={{width: offer ? `${getPersentsFromNumber(offer.rating)}` : '0'}}></span>
+                      <span className="visually-hidden">Rating</span>
+                    </div>
+                    <span className="property__rating-value rating__value">{offer?.rating}</span>
+                  </div>
+                  <ul className="property__features">
+                    <li className="property__feature property__feature--entire">
+                      Apartment
+                    </li>
+                    <li className="property__feature property__feature--bedrooms">
+                      {offer?.bedrooms}
+                    </li>
+                    <li className="property__feature property__feature--adults">
+                      {offer?.maxAdults}
+                    </li>
+                  </ul>
+                  <div className="property__price">
+                    <b className="property__price-value">&euro;{offer?.price}</b>
+                    <span className="property__price-text">&nbsp;night</span>
+                  </div>
+                  <div className="property__inside">
+                    <h2 className="property__inside-title">What&apos;s inside</h2>
+                    <ul className="property__inside-list">
+                      {offer?.goods.map((item) => (
+                        <li className="property__inside-item" key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="property__host">
+                    <h2 className="property__host-title">Meet the host</h2>
+                    <div className="property__host-user user">
+                      <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
+                        <img className="property__avatar user__avatar"
+                          src={offer?.host.avatarUrl}
+                          width="74"
+                          height="74"
+                          alt="Host avatar"
+                        />
+                      </div>
+                      <span className="property__user-name">
+                        {offer?.host.name}
+                      </span>
+                      <span className="property__user-status">
+                        {offer?.host.isPro}
+                      </span>
+                    </div>
+                    <div className="property__description">
+                      <p className="property__text">
+                        {offer?.description}
+                      </p>
+                      <p className="property__text">
+                        An independent House, strategically located between Rembrand Square and National Opera, but where
+                        the bustle of the city comes to rest in this alley flowery and colorful.
+                      </p>
+                    </div>
+                  </div>
+                  <section className="property__reviews reviews">
+                    {comments && (
+                      <>
+                        <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
+                        <ul className="reviews__list">
+                          {comments.length > 0 && (
+                            Array.from(comments)
+                              .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+                              .slice(0, COMMENTS_COUNT)
+                              .map((item) => <Comment key={item.id} comment={item} />)
+                          )}
+                        </ul>
+                        {authorizationStatus === AuthStatus.Auth && <ReviewForm offerId={offerId} />}
+                      </>
+                    )}
+                  </section>
+                </div>
+              </div>
+              {nearbyOffers && offer && (
+                <Map
+                  offers={nearbyOffers.concat(offer)}
+                  selectedPoint={offerId}
+                  city={offer.city}
+                  className={'property'}
                 />
               )}
+            </section>
+            <div className="container">
+              <section className="near-places places">
+                <h2 className="near-places__title">Other places in the neighbourhood</h2>
+                <div className="near-places__list places__list">
+                  {nearbyOffers && (
+                    <OffersList
+                      offers={nearbyOffers}
+                      onListItemHover={(i) => setActiveCard(Number(i))}
+                      selectedPoint={activeCard}
+                    />
+                  )}
+                </div>
+              </section>
             </div>
-          </section>
+          </main>
         </div>
-      </main>
-    </div>
+      )
   );
 }
 

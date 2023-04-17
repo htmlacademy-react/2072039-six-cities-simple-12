@@ -1,4 +1,4 @@
-import { useAppSelector, useAppDispatch } from '../../hooks';
+import { useAppDispatch } from '../../hooks';
 
 import {
   useState,
@@ -24,8 +24,6 @@ type ReviewFormProps = {
 
 function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
   const dispatch = useAppDispatch();
-
-  const isCommentPosting = useAppSelector((state) => state.isCommentPosting);
 
   const commentRef = useRef<HTMLTextAreaElement | null>(null);
 
@@ -101,7 +99,7 @@ function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={isCommentPosting}
+          // disabled={isCommentPosting}
         >
           Submit
         </button>
