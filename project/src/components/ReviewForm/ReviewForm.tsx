@@ -1,11 +1,12 @@
-import { useAppDispatch } from '../../hooks';
-
 import {
+  ChangeEvent,
   useState,
-  useRef,
+  useEffect,
   Fragment,
   FormEvent,
 } from 'react';
+
+import { useAppDispatch } from '../../hooks';
 
 import {
   MIN_LENGTH_COMMENT,
@@ -25,9 +26,22 @@ type ReviewFormProps = {
 function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
   const dispatch = useAppDispatch();
 
-  const commentRef = useRef<HTMLTextAreaElement | null>(null);
-
   const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState('');
+  const [isButtonDisabled, setButtonDisabled] = useState(false);
+
+  useEffect(() => {
+    const isDisable = !!(
+      comment.length > MAX_LENGTH_COMMENT
+      || comment.length < MIN_LENGTH_COMMENT
+      || rating === 0
+    );
+    setButtonDisabled(isDisable);
+  }, [rating, comment]);
+
+  const onCommitChangeHandle = ({ target }: ChangeEvent<HTMLTextAreaElement>) => {
+    setComment(target.value);
+  };
 
   const ratingValues = Array.from({ length: STARS_NUMBER }, (_, index) => index + 1);
 
@@ -35,20 +49,22 @@ function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
     dispatch(postCommentAction(data));
   };
 
+  const clearForm = () => {
+    if (rating) {
+      const ratingElement = document.getElementById(`${rating}-stars`);
+      if (ratingElement) {
+        (ratingElement as HTMLInputElement).checked = false;
+      }
+    }
+    setRating(0);
+    setComment('');
+    setButtonDisabled(false);
+  };
+
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    if (
-      commentRef.current !== null
-      && commentRef.current.value.length > MIN_LENGTH_COMMENT
-      && commentRef.current.value.length < MAX_LENGTH_COMMENT
-    ) {
-      onSubmit({
-        offerId,
-        comment: commentRef.current.value,
-        rating,
-      });
-      commentRef.current.value = '';
-    }
+    onSubmit({ offerId, comment, rating });
+    clearForm();
   };
 
   return (
@@ -86,7 +102,8 @@ function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
         className="reviews__textarea form__textarea"
         id="comment"
         name="comment"
-        ref={commentRef}
+        onChange={onCommitChangeHandle}
+        value={comment}
         placeholder="Tell how was your stay, what you like and what can be improved"
       />
       <div className="reviews__button-wrapper">
@@ -99,7 +116,7 @@ function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          // disabled={isCommentPosting}
+          disabled={isButtonDisabled}
         >
           Submit
         </button>
