@@ -36,12 +36,15 @@ export const roomInfo = createSlice({
       .addCase(loadNearOffersAction.fulfilled, (state, action) => {
         state.nearbyOffers = action.payload;
       })
-      .addCase(postCommentAction.pending, (state, action) => {
+      .addCase(postCommentAction.pending, (state) => {
         state.isCommentPosting = Status.Loading;
       })
       .addCase(postCommentAction.fulfilled, (state, action) => {
         state.isCommentPosting = Status.Success;
         state.comments = action.payload;
+      })
+      .addCase(postCommentAction.rejected, (state, action) => {
+        state.isCommentPosting = Status.Error;
       });
   }
 });
