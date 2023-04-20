@@ -137,9 +137,9 @@ export const postCommentAction = createAsyncThunk<Comments, NewComment, {
   extra: AxiosInstance;
 }>(
   'comment/post',
-  async ({ offerId, comment, rating }, { dispatch, extra: api }) => {
+  async ({ id, comment, rating }, { dispatch, extra: api }) => {
     try{
-      const { data } = await api.post<Comments>(`${APIRoute.Comments}/${offerId}`, {comment, rating});
+      const { data } = await api.post<Comments>(`${APIRoute.Comments}/${id}`, {comment, rating});
       return data;
     } catch (error) {
       toast.error('Send message failed');
