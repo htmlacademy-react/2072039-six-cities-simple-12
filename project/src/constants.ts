@@ -16,6 +16,8 @@ export const cityNames = [
 
 export const defaultCity = 'Paris';
 
+export const randomCity = cityNames[Math.floor(Math.random() * cityNames.length)];
+
 export const sortList = {
   DEFAULT: {
     label: 'Popular',
