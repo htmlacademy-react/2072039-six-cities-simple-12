@@ -165,7 +165,7 @@ function RoomPage() {
                               .map((item) => <Comment key={item.id} comment={item} />)
                           )}
                         </ul>
-                        {authorizationStatus === AuthStatus.Auth && <ReviewForm offerId={offerId} />}
+                        {authorizationStatus === AuthStatus.Auth && <ReviewForm id={offerId} />}
                       </>
                     )}
                   </section>

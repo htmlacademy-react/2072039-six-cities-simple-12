@@ -20,10 +20,10 @@ import { postCommentAction } from '../../store/apiActions';
 
 
 type ReviewFormProps = {
-  offerId: number;
+  id: number;
 };
 
-function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
+function ReviewForm({ id }: ReviewFormProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   const [rating, setRating] = useState(0);
@@ -63,7 +63,7 @@ function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    onSubmit({ offerId, comment, rating });
+    onSubmit({ id, comment, rating });
     clearForm();
   };
 
