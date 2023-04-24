@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
+import { toast } from 'react-toastify';
 
 import { APIRoute, AppRoute } from '../constants';
 
@@ -21,8 +22,13 @@ export const loadOffersAction = createAsyncThunk<Offers, undefined, {
 }>(
   'offers/load',
   async (_arg, { dispatch, extra: api }) => {
-    const { data } = await api.get<Offers>(APIRoute.Offers);
-    return data;
+    try {
+      const { data } = await api.get<Offers>(APIRoute.Offers);
+      return data;
+    } catch (error) {
+      toast.error('Load hotels failed');
+      throw error;
+    }
   }
 );
 
@@ -45,10 +51,15 @@ export const loginAction = createAsyncThunk<User, AuthData, {
 }>(
   'user/login',
   async ({ login: email, password }, { dispatch, extra: api }) => {
-    const {data: user} = await api.post<User>(APIRoute.Login, { email, password });
-    saveToken(user.token);
-    dispatch(redirectToRoute(AppRoute.Main));
-    return user;
+    try {
+      const {data: user} = await api.post<User>(APIRoute.Login, { email, password });
+      saveToken(user.token);
+      dispatch(redirectToRoute(AppRoute.Main));
+      return user;
+    } catch (error) {
+      toast.error('Login failed');
+      throw error;
+    }
   },
 );
 
@@ -59,8 +70,13 @@ export const logoutAction = createAsyncThunk<void, undefined, {
 }>(
   'user/logout',
   async (_arg, { dispatch, extra: api }) => {
-    await api.delete(APIRoute.Logout);
-    dropToken();
+    try{
+      await api.delete(APIRoute.Logout);
+      dropToken();
+    } catch (error) {
+      toast.error('Logout failed');
+      throw error;
+    }
   },
 );
 
@@ -71,8 +87,13 @@ export const loadOfferAction = createAsyncThunk<Offer, number, {
 }>(
   'offer/load',
   async (offerId, { dispatch, extra: api} ) => {
-    const { data } = await api.get<Offer>(`${APIRoute.Offer}/${offerId}`);
-    return data;
+    try{
+      const { data } = await api.get<Offer>(`${APIRoute.Offer}/${offerId}`);
+      return data;
+    } catch (error) {
+      toast.error('Load hotel info failed');
+      throw error;
+    }
   },
 );
 
@@ -83,8 +104,13 @@ export const loadRoomCommentsAction = createAsyncThunk<Comments, number, {
 }>(
   'comments/load',
   async (offerId, { dispatch, extra: api }) => {
-    const { data } = await api.get<Comments>(`${APIRoute.Comments}/${offerId}`);
-    return data;
+    try{
+      const { data } = await api.get<Comments>(`${APIRoute.Comments}/${offerId}`);
+      return data;
+    } catch (error) {
+      toast.error('Load comments failed');
+      throw error;
+    }
   }
 );
 
@@ -95,8 +121,13 @@ export const loadNearOffersAction = createAsyncThunk<Offers, number, {
 }>(
   'offersNearby/load',
   async (hotelId, { dispatch, extra: api }) => {
-    const { data } = await api.get<Offers>(`${APIRoute.Offer}/${hotelId}/nearby`);
-    return data;
+    try {
+      const { data } = await api.get<Offers>(`${APIRoute.Offer}/${hotelId}/nearby`);
+      return data;
+    } catch (error) {
+      toast.error('Load near offers failed');
+      throw error;
+    }
   }
 );
 
@@ -106,8 +137,13 @@ export const postCommentAction = createAsyncThunk<Comments, NewComment, {
   extra: AxiosInstance;
 }>(
   'comment/post',
-  async ({ offerId, comment, rating }, { dispatch, extra: api }) => {
-    const { data } = await api.post<Comments>(`${APIRoute.Comments}/${offerId}`, {comment, rating});
-    return data;
+  async ({ id, comment, rating }, { dispatch, extra: api }) => {
+    try{
+      const { data } = await api.post<Comments>(`${APIRoute.Comments}/${id}`, {comment, rating});
+      return data;
+    } catch (error) {
+      toast.error('Send message failed');
+      throw error;
+    }
   },
 );

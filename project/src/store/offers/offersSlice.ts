@@ -8,7 +8,7 @@ import { Offers } from '../../types/offers';
 import { SortingOption } from '../../types/sorting';
 
 
-type OffersSliceState = {
+export type OffersSliceState = {
   offers: Offers;
   activeCity: string;
   isOffersLoading: Status;
@@ -25,8 +25,7 @@ const initialState: OffersSliceState = {
   },
 };
 
-
-export const offers = createSlice({
+export const offersData = createSlice({
   name: NameSpace.Offers,
   initialState,
   reducers: {
@@ -52,4 +51,4 @@ export const offers = createSlice({
   }
 });
 
-export const { setCity, changeOffersSort } = offers.actions;
+export const { setCity, changeOffersSort } = offersData.actions;

@@ -2,8 +2,6 @@ import { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import cn from 'classnames';
 
-import useSelect from '../../hooks/useSelect';
-
 import { sortList } from '../../constants';
 
 import { changeOffersSort } from '../../store/offers/offersSlice';
@@ -27,11 +25,18 @@ const SelectForm = ({ select }: SelectFormProps): JSX.Element => {
     dispatch(changeOffersSort(sortItem));
   };
 
-  useSelect(ref, () => setOpen(false));
-
   return (
-    <form className="places__sorting" action="#" method="get">
-      <span className="places__sorting-caption" style={{marginRight: 5}}>Sort by</span>
+    <form
+      className="places__sorting"
+      action="#"
+      method="get"
+    >
+      <span
+        className="places__sorting-caption"
+        style={{marginRight: 5}}
+      >
+        Sort by
+      </span>
       <span onClick={() => setOpen(!open)}
         className="places__sorting-type"
         tabIndex={0}
@@ -51,7 +56,10 @@ const SelectForm = ({ select }: SelectFormProps): JSX.Element => {
               <li
                 onClick={() => onSortItemClick(sortItem.label, sortItem)}
                 key={sortItem.label}
-                className={cn('places__option', sortItem.label === select.label && 'places__option--active')}
+                className={cn(
+                  'places__option',
+                  sortItem.label === select.label && 'places__option--active'
+                )}
                 tabIndex={0}
               >
                 {sortItem.label}

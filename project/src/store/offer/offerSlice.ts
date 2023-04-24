@@ -7,7 +7,7 @@ import { loadOfferAction } from '../apiActions';
 import { Offer } from '../../types/offers';
 
 
-type InitialOfferState = {
+export type InitialOfferState = {
   offer: Offer | null;
   isOfferLoading: Status;
 };
@@ -17,7 +17,7 @@ const initialState: InitialOfferState = {
   isOfferLoading: Status.Idle,
 };
 
-export const offer = createSlice({
+export const offerData = createSlice({
   name: NameSpace.Offer,
   initialState,
   reducers: {},

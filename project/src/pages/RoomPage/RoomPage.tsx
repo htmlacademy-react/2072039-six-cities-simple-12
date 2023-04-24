@@ -70,8 +70,15 @@ function RoomPage() {
                   {offer?.images
                     .slice(0, MAX_NUMBER_IMAGES)
                     .map((photoUrl) => (
-                      <div className="property__image-wrapper" key={photoUrl}>
-                        <img className="property__image" src={photoUrl} alt={`${photoUrl}`} />
+                      <div
+                        className="property__image-wrapper"
+                        key={photoUrl}
+                      >
+                        <img
+                          className="property__image"
+                          src={photoUrl}
+                          alt={`${photoUrl}`}
+                        />
                       </div>
                     ))}
                 </div>
@@ -85,7 +92,7 @@ function RoomPage() {
                   )}
                   <div className="property__name-wrapper">
                     <h1 className="property__name">
-                      {offer?.description}
+                      {offer?.title}
                     </h1>
                   </div>
                   <div className="property__rating rating">
@@ -121,7 +128,13 @@ function RoomPage() {
                   <div className="property__host">
                     <h2 className="property__host-title">Meet the host</h2>
                     <div className="property__host-user user">
-                      <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
+                      <div
+                        className={
+                          `property__avatar-wrapper
+                          ${offer?.host.isPro ? 'property__avatar-wrapper--pro' : ''}
+                          user__avatar-wrapper`
+                        }
+                      >
                         <img className="property__avatar user__avatar"
                           src={offer?.host.avatarUrl}
                           width="74"
@@ -132,24 +145,20 @@ function RoomPage() {
                       <span className="property__user-name">
                         {offer?.host.name}
                       </span>
-                      <span className="property__user-status">
-                        {offer?.host.isPro}
-                      </span>
+                      {offer?.host.isPro && <span className="property__user-status">Pro</span>}
                     </div>
                     <div className="property__description">
                       <p className="property__text">
                         {offer?.description}
-                      </p>
-                      <p className="property__text">
-                        An independent House, strategically located between Rembrand Square and National Opera, but where
-                        the bustle of the city comes to rest in this alley flowery and colorful.
                       </p>
                     </div>
                   </div>
                   <section className="property__reviews reviews">
                     {comments && (
                       <>
-                        <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
+                        <h2 className="reviews__title">
+                            Reviews &middot; <span className="reviews__amount">{comments.length}</span>
+                        </h2>
                         <ul className="reviews__list">
                           {comments.length > 0 && (
                             Array.from(comments)
@@ -158,7 +167,7 @@ function RoomPage() {
                               .map((item) => <Comment key={item.id} comment={item} />)
                           )}
                         </ul>
-                        {authorizationStatus === AuthStatus.Auth && <ReviewForm offerId={offerId} />}
+                        {authorizationStatus === AuthStatus.Auth && <ReviewForm id={offerId} />}
                       </>
                     )}
                   </section>

@@ -1,17 +1,24 @@
 import { Navigate, Link } from 'react-router-dom';
 
-import { useAppSelector } from '../../hooks';
+import { useAppSelector, useAppDispatch } from '../../hooks';
 
-import { AuthStatus, AppRoute } from '../../constants';
+import { AuthStatus, AppRoute, randomCity } from '../../constants';
 
 import { getAuthorizationStatus } from '../../store/user/selectors';
+
+import { setCity } from '../../store/offers/offersSlice';
 
 import Logo from '../../components/Logo/Logo';
 import LoginForm from '../../components/LoginForm/LoginForm';
 
 
 function LoginPage(): JSX.Element {
+  const dispatch = useAppDispatch();
   const isAuth = useAppSelector(getAuthorizationStatus);
+
+  const toMainPageHandler = () => {
+    dispatch(setCity(randomCity));
+  };
 
   return (
     isAuth === AuthStatus.Auth
@@ -35,8 +42,12 @@ function LoginPage(): JSX.Element {
                 </section>
                 <section className="locations locations--login locations--current">
                   <div className="locations__item">
-                    <Link className="locations__item-link" to="/">
-                      <span>Amsterdam</span>
+                    <Link
+                      className="locations__item-link"
+                      to="/"
+                      onClick={toMainPageHandler}
+                    >
+                      <span>{randomCity}</span>
                     </Link>
                   </div>
                 </section>

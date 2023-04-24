@@ -33,11 +33,3 @@ export type Offer = {
 };
 
 export type Offers = Offer[];
-
-export type Reviews = {
-  avaUser: string;
-  userName: string;
-  userStatus: string;
-  text: string;
-  time: string;
-};
