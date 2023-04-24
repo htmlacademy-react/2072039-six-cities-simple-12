@@ -33,7 +33,9 @@ function CommentItem({ comment }: CommentProps): JSX.Element {
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
-        <p className="reviews__text">{comment.comment}</p>
+        <p className="reviews__text" style={{ wordBreak: 'break-all' }}>
+          {comment.comment}
+        </p>
         <time
           className="reviews__time"
           dateTime={`${itemDate.getFullYear()}-${itemDate.getMonth()}-${itemDate.getDate()}`}

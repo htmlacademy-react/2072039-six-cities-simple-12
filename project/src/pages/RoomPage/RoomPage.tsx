@@ -92,7 +92,7 @@ function RoomPage() {
                   )}
                   <div className="property__name-wrapper">
                     <h1 className="property__name">
-                      {offer?.description}
+                      {offer?.title}
                     </h1>
                   </div>
                   <div className="property__rating rating">
@@ -156,7 +156,9 @@ function RoomPage() {
                   <section className="property__reviews reviews">
                     {comments && (
                       <>
-                        <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
+                        <h2 className="reviews__title">
+                            Reviews &middot; <span className="reviews__amount">{comments.length}</span>
+                        </h2>
                         <ul className="reviews__list">
                           {comments.length > 0 && (
                             Array.from(comments)
