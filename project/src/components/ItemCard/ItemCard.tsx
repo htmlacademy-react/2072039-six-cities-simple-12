@@ -11,7 +11,7 @@ type ItemCardProps = {
 };
 
 function ItemCard({ offer, onMouseOverHandler }: ItemCardProps): JSX.Element {
-  const { id, isPremium, previewImage, rating, price, description, type } = offer;
+  const { id, isPremium, previewImage, rating, price, title, type } = offer;
 
   return (
     <article
@@ -48,7 +48,7 @@ function ItemCard({ offer, onMouseOverHandler }: ItemCardProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to="/">{description}</Link>
+          <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

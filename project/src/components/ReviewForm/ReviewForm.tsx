@@ -6,17 +6,19 @@ import {
   FormEvent,
 } from 'react';
 
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 
 import {
   MIN_LENGTH_COMMENT,
   MAX_LENGTH_COMMENT,
   STARS_NUMBER,
+  Status,
 } from '../../constants';
 
 import { NewComment } from '../../types/comments';
 
 import { postCommentAction } from '../../store/apiActions';
+import { getIsCommentPosting } from '../../store/roomInfo/selectors';
 
 
 type ReviewFormProps = {
@@ -29,6 +31,8 @@ function ReviewForm({ id }: ReviewFormProps): JSX.Element {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
   const [isButtonDisabled, setButtonDisabled] = useState(false);
+
+  const isCommmentPosting = useAppSelector(getIsCommentPosting) === Status.Loading;
 
   useEffect(() => {
     const isDisable = !!(
@@ -74,7 +78,12 @@ function ReviewForm({ id }: ReviewFormProps): JSX.Element {
       method="post"
       onSubmit = {handleSubmit}
     >
-      <label className="reviews__label form__label" htmlFor="review">Your review</label>
+      <label
+        className="reviews__label form__label"
+        htmlFor="review"
+      >
+        Your review
+      </label>
       <div className="reviews__rating-form form__rating">
         {ratingValues.reverse().map((value: number) => (
           <Fragment key={value}>
@@ -85,6 +94,7 @@ function ReviewForm({ id }: ReviewFormProps): JSX.Element {
               id={`${value}-stars`}
               type="radio"
               onChange={() => setRating(value)}
+              disabled={isCommmentPosting}
             />
             <label
               htmlFor={`${value}-stars`}
@@ -105,6 +115,7 @@ function ReviewForm({ id }: ReviewFormProps): JSX.Element {
         onChange={onCommitChangeHandle}
         value={comment}
         placeholder="Tell how was your stay, what you like and what can be improved"
+        disabled={isCommmentPosting}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
