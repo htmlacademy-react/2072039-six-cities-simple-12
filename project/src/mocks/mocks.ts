@@ -67,5 +67,5 @@ export const makeFakeReviews = (): Reviews =>
 export const makeFakeReviewPayload = (): ReviewPayload => ({
   comment: datatype.string(),
   rating: 5,
-  id: 100,
+  id: 1,
 });

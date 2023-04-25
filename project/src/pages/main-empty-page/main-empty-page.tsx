@@ -1,6 +1,6 @@
 import { cityNames } from '../../constants';
 
-import NavCities from '../../components/NavCities/NavCities';
+import NavCities from '../../components/nav-cities/nav-cities';
 
 
 function MainEmptyPage(): JSX.Element {

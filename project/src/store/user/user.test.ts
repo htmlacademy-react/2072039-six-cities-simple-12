@@ -2,7 +2,7 @@ import { userDataState, userData } from './userSlice';
 
 import { AuthStatus, Status } from '../../constants';
 
-import { checkAuthAction, loginAction, logoutAction } from '../apiActions';
+import { checkAuthAction, loginAction, logoutAction } from '../api-actions';
 
 import { makeFakeUserData } from '../../mocks/mocks';
 

@@ -1,9 +1,12 @@
 import { useRef, useEffect, useState } from 'react';
 import { FeatureGroup, Icon, Marker } from 'leaflet';
+
 import useMap from '../../hooks/useMap';
+
 import { City } from '../../types/cities';
 import { Offers } from '../../types/offers';
-import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../constants';
+
+import { MapMarker } from '../../constants';
 
 import 'leaflet/dist/leaflet.css';
 
@@ -11,18 +14,18 @@ import 'leaflet/dist/leaflet.css';
 type MapProps = {
   city: City;
   offers: Offers;
-  selectedPoint: number | null;
+  selectedPoint?: number | null;
   className: string;
 };
 
 const defaultCustomIcon = new Icon({
-  iconUrl: URL_MARKER_DEFAULT,
+  iconUrl: MapMarker.Default,
   iconSize: [40, 40],
   iconAnchor: [20, 40]
 });
 
 const currentCustomIcon = new Icon({
-  iconUrl: URL_MARKER_CURRENT,
+  iconUrl: MapMarker.Current,
   iconSize: [40, 40],
   iconAnchor: [20, 40]
 });
@@ -50,7 +53,13 @@ function Map(props: MapProps): JSX.Element {
       markersGroup.addTo(map);
       map.setView([city.location.latitude, city.location.longitude], city.location.zoom);
     }
-  }, [map, offers, selectedPoint]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [
+    map,
+    offers,
+    selectedPoint,
+    city,
+    markersGroup,
+  ]);
 
   return <section ref={mapRef} className={`${className}__map map`}></section>;
 }

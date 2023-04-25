@@ -6,7 +6,7 @@ import {
   loadRoomCommentsAction,
   loadNearOffersAction,
   postCommentAction,
-} from '../apiActions';
+} from '../api-actions';
 
 import { Comments } from '../../types/comments';
 import { Offers } from '../../types/offers';

@@ -1,8 +1,5 @@
-import './index.css';
-
-
 const Loader = () => (
-  <div className="loader">
+  <div data-testid="loader">
     <div className="loaderString">Loading ...</div>
   </div>
 );

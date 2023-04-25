@@ -5,7 +5,7 @@ import { useAppSelector, useAppDispatch, } from '../../hooks';
 
 import { AppRoute, AuthStatus } from '../../constants';
 
-import { logoutAction } from '../../store/apiActions';
+import { logoutAction } from '../../store/api-actions';
 import {
   getAuthorizationStatus,
   getUserLogin,
@@ -43,7 +43,7 @@ function AuthorizationPanel() {
                 <Link
                   className="header__nav-link"
                   to="/login"
-                  onClick = {handleLogout}
+                  onClick={handleLogout}
                 >
                   <span className="header__signout">Sign out</span>
                 </Link>

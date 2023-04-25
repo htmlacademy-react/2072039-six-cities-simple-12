@@ -16,8 +16,6 @@ export const cityNames = [
 
 export const defaultCity = 'Paris';
 
-export const randomCity = cityNames[Math.floor(Math.random() * cityNames.length)];
-
 export const sortList = {
   DEFAULT: {
     label: 'Popular',
@@ -65,15 +63,23 @@ export enum Status {
   Error = 'error',
 }
 
+export enum CommentLenght {
+  MinSymbolCount = 50,
+  MaxSymbolCount = 300,
+}
+
+export enum RatingStars {
+  MinStarsNumber = 0,
+  MaxStarsNumber = 5,
+}
+
+export enum MapMarker {
+  Default = '../img/pin.svg',
+  Current = '../img/pin-active.svg',
+}
+
 export const BACKEND_URL = 'https://12.react.pages.academy/six-cities-simple';
 export const REQUEST_TIMEOUT = 5000;
 export const AUTH_TOKEN_KEY_NAME = 'sixCitiesToken';
 export const MAX_NUMBER_IMAGES = 6;
 export const COMMENTS_COUNT = 10;
-
-export const MIN_LENGTH_COMMENT = 50;
-export const MAX_LENGTH_COMMENT = 300;
-export const STARS_NUMBER = 5;
-
-export const URL_MARKER_DEFAULT = '../img/pin.svg';
-export const URL_MARKER_CURRENT = '../img/pin-active.svg';

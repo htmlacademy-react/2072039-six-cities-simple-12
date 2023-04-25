@@ -2,19 +2,25 @@ import { Navigate, Link } from 'react-router-dom';
 
 import { useAppSelector, useAppDispatch } from '../../hooks';
 
-import { AuthStatus, AppRoute, randomCity } from '../../constants';
+import {
+  AuthStatus,
+  AppRoute,
+  cityNames,
+} from '../../constants';
 
 import { getAuthorizationStatus } from '../../store/user/selectors';
 
 import { setCity } from '../../store/offers/offersSlice';
 
-import Logo from '../../components/Logo/Logo';
-import LoginForm from '../../components/LoginForm/LoginForm';
+import Logo from '../../components/logo/logo';
+import LoginForm from '../../components/login-form/login-form';
 
 
 function LoginPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const isAuth = useAppSelector(getAuthorizationStatus);
+
+  const randomCity = cityNames[Math.floor(Math.random() * cityNames.length)];
 
   const toMainPageHandler = () => {
     dispatch(setCity(randomCity));

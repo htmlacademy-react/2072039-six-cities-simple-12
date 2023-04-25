@@ -1,6 +1,6 @@
 import { Status } from '../../constants';
 
-import { loadOfferAction } from '../apiActions';
+import { loadOfferAction } from '../api-actions';
 
 import { makeFakeOffer } from '../../mocks/mocks';
 

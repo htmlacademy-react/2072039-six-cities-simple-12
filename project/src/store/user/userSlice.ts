@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { NameSpace, AuthStatus, Status } from '../../constants';
 
-import { checkAuthAction, loginAction, logoutAction } from '../apiActions';
+import { checkAuthAction, loginAction, logoutAction } from '../api-actions';
 
 
 export type userDataState = {

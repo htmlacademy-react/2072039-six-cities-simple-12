@@ -8,19 +8,19 @@ import { getSelectedOffers } from '../../utils/getSelectedOffers';
 
 import { getOffers, getActiveCity, getSelect } from '../../store/offers/selectors';
 
-import MainEmptyPage from '../MainEmptyPage/MainEmptyPage';
-import OffersList from '../../components/OffersList/OffersList';
-import NavCities from '../../components/NavCities/NavCities';
-import SelectForm from '../../components/SelectForm/SelectForm';
-import Map from '../../components/Map/Map';
+import MainEmptyPage from '../main-empty-page/main-empty-page';
+import OffersList from '../../components/offers-list/offers-list';
+import NavCities from '../../components/nav-cities/nav-cities';
+import SelectForm from '../../components/select-form/select-form';
+import Map from '../../components/map/map';
 
 import { Offers, Offer } from '../../types/offers';
 
 
 function MainPage(): JSX.Element {
-  const getActiveOffers = useMemo(() => (
-    (activeCity: string, offers: Offers) => offers ? offers.filter((offer) => offer.city.name === activeCity) : []),
-  []);
+  const getActiveOffers = (activeCity: string, offers: Offers) => (
+    offers ? offers.filter((offer) => offer.city.name === activeCity) : []
+  );
 
   const getCityForMap = useMemo(() =>(
     (offer: Offer) => offer.city
@@ -37,7 +37,7 @@ function MainPage(): JSX.Element {
 
   useEffect(() => {
     setOffers(getActiveOffers(activeCity, offers));
-  }, [activeCity]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [activeCity, offers]);
 
   return (
     sortedOffers.length > 0 ? (

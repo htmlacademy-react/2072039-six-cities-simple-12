@@ -3,9 +3,11 @@ import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom/client';
 import { ToastContainer } from 'react-toastify';
 
-import { checkAuthAction, loadOffersAction } from './store/apiActions';
+import { checkAuthAction, loadOffersAction } from './store/api-actions';
 
 import App from './components/app/app';
+import HistoryRouter from './components/history-router/history-router';
+import browserHistory from './brouser-history';
 
 import { store } from './store';
 
@@ -23,7 +25,9 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <ToastContainer />
-      <App />
+      <HistoryRouter history={browserHistory}>
+        <App />
+      </HistoryRouter>
     </Provider>
   </React.StrictMode>,
 );

@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 
-import Logo from '../../components/Logo/Logo';
-import AuthorizationPanel from '../AuthorizationPanel/AuthorizationPanel';
+import Logo from '../logo/logo';
+import AuthorizationPanel from '../authorization-panel/authorization-panel';
 
 
 function Layout(): JSX.Element {
