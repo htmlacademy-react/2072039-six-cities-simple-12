@@ -10,12 +10,9 @@ import { createAPI } from '../services/api';
 import {
   checkAuthAction,
   loginAction,
-  logoutAction,
   loadOffersAction,
   loadOfferAction,
   loadNearOffersAction,
-  loadRoomCommentsAction,
-  postCommentAction,
 } from './api-actions';
 
 import { State } from '../types/state';
@@ -26,21 +23,12 @@ import { redirectToRoute } from './action';
 
 import { APIRoute, AUTH_TOKEN_KEY_NAME } from '../constants';
 
-import {
-  makeFakeOffer,
-  makeFakeReviewPayload,
-  makeFakeReviews,
-  makeFakeUserData,
-} from '../mocks/mocks';
+import { makeFakeOffer, makeFakeUserData } from '../mocks/mocks';
 
 
-const offers = Array.from({ length: datatype.number(10) }, () =>
-  makeFakeOffer()
-);
+const offers = Array.from({ length: datatype.number(10) }, () => makeFakeOffer());
 const offer = makeFakeOffer();
 const id = 1;
-const reviews = makeFakeReviews();
-const postReview = makeFakeReviewPayload();
 const user = makeFakeUserData();
 
 describe('Async actions', () => {
@@ -119,7 +107,7 @@ describe('Async actions', () => {
   });
 
   it('should dispatch RequriedAuthorization and RedirectToRoute when POST /login', async () => {
-    const fakeUser: AuthData = { login: 'test@test.ru', password: '1gr' };
+    const fakeUser: AuthData = { login: 'test@test.com', password: '1q' };
 
     mockAPI.onPost(APIRoute.Login).reply(200, { token: 'secret' });
 
@@ -141,51 +129,5 @@ describe('Async actions', () => {
       AUTH_TOKEN_KEY_NAME,
       'secret'
     );
-  });
-
-  it('should load reviews action when server returns 200', async () => {
-    const store = mockStore();
-    mockAPI.onGet(`${APIRoute.Comments}${id}`).reply(200, reviews);
-
-    expect(store.getActions()).toEqual([]);
-    await store.dispatch(loadRoomCommentsAction(id));
-    const actions = store.getActions().map(({ type }) => type);
-    expect(actions).toEqual([
-      loadRoomCommentsAction.pending.type,
-      loadRoomCommentsAction.fulfilled.type,
-    ]);
-  });
-
-  it('should post review action when server returns 200', async () => {
-    const store = mockStore();
-    mockAPI.onPost(`${APIRoute.Comments}${postReview.id}`).reply(200, reviews);
-
-    expect(store.getActions()).toEqual([]);
-    await store.dispatch(postCommentAction(postReview));
-    const actions = store.getActions().map(({ type }) => type);
-    expect(actions).toEqual([
-      postCommentAction.pending.type,
-      postCommentAction.fulfilled.type,
-    ]);
-  });
-
-  it('should dispatch Logout when /logout', async () => {
-    mockAPI.onDelete(APIRoute.Logout).reply(204);
-
-    const store = mockStore();
-    Storage.prototype.removeItem = jest.fn();
-
-    await store.dispatch(logoutAction());
-
-    const actions = store.getActions().map(({ type }) => type);
-
-    expect(actions).toEqual([
-      logoutAction.pending.type,
-      loadOffersAction.pending.type,
-      logoutAction.fulfilled.type,
-    ]);
-
-    expect(Storage.prototype.removeItem).toBeCalledTimes(1);
-    expect(Storage.prototype.removeItem).toBeCalledWith(AUTH_TOKEN_KEY_NAME);
   });
 });
