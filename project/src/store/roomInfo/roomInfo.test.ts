@@ -4,7 +4,7 @@ import {
   loadRoomCommentsAction,
   loadNearOffersAction,
   postCommentAction,
-} from '../apiActions';
+} from '../api-actions';
 
 import {
   makeFakeReviews,

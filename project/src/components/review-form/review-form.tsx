@@ -9,15 +9,14 @@ import {
 import { useAppDispatch, useAppSelector } from '../../hooks';
 
 import {
-  MIN_LENGTH_COMMENT,
-  MAX_LENGTH_COMMENT,
-  STARS_NUMBER,
+  CommentLenght,
+  RatingStars,
   Status,
 } from '../../constants';
 
 import { NewComment } from '../../types/comments';
 
-import { postCommentAction } from '../../store/apiActions';
+import { postCommentAction } from '../../store/api-actions';
 import { getIsCommentPosting } from '../../store/roomInfo/selectors';
 
 
@@ -28,7 +27,7 @@ type ReviewFormProps = {
 function ReviewForm({ id }: ReviewFormProps): JSX.Element {
   const dispatch = useAppDispatch();
 
-  const [rating, setRating] = useState(0);
+  const [rating, setRating] = useState(RatingStars.MinStarsNumber);
   const [comment, setComment] = useState('');
   const [isButtonDisabled, setButtonDisabled] = useState(false);
 
@@ -36,9 +35,9 @@ function ReviewForm({ id }: ReviewFormProps): JSX.Element {
 
   useEffect(() => {
     const isDisable = !!(
-      comment.length > MAX_LENGTH_COMMENT
-      || comment.length < MIN_LENGTH_COMMENT
-      || rating === 0
+      comment.length > CommentLenght.MaxSymbolCount
+      || comment.length < CommentLenght.MinSymbolCount
+      || rating === RatingStars.MinStarsNumber
     );
     setButtonDisabled(isDisable);
   }, [rating, comment]);
@@ -47,7 +46,7 @@ function ReviewForm({ id }: ReviewFormProps): JSX.Element {
     setComment(target.value);
   };
 
-  const ratingValues = Array.from({ length: STARS_NUMBER }, (_, index) => index + 1);
+  const ratingValues = Array.from({ length: RatingStars.MaxStarsNumber }, (_, index) => ++index);
 
   const onSubmit = (data: NewComment) => {
     dispatch(postCommentAction(data));
@@ -60,7 +59,7 @@ function ReviewForm({ id }: ReviewFormProps): JSX.Element {
         (ratingElement as HTMLInputElement).checked = false;
       }
     }
-    setRating(0);
+    setRating(RatingStars.MinStarsNumber);
     setComment('');
     setButtonDisabled(false);
   };
@@ -123,7 +122,7 @@ function ReviewForm({ id }: ReviewFormProps): JSX.Element {
           <span className="reviews__star">rating</span>
           and describe your stay with at least
           <b className="reviews__text-amount">
-            &nbsp;{MIN_LENGTH_COMMENT} characters
+            &nbsp;{CommentLenght.MinSymbolCount} characters
           </b>.
         </p>
         <button

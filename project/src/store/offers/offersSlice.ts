@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { NameSpace, defaultCity, Status } from '../../constants';
 
-import { loadOffersAction } from '../apiActions';
+import { loadOffersAction } from '../api-actions';
 
 import { Offers } from '../../types/offers';
 import { SortingOption } from '../../types/sorting';

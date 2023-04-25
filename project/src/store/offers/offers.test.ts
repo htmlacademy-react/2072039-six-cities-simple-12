@@ -2,11 +2,10 @@ import { datatype } from 'faker';
 
 import { Status, cityNames, sortList } from '../../constants';
 
-import { loadOffersAction } from '../apiActions';
+import { loadOffersAction } from '../api-actions';
 import { setCity, changeOffersSort } from '../../store/offers/offersSlice';
 
 import { makeFakeOffer } from '../../mocks/mocks';
-import { randomCity } from '../../constants';
 
 import { OffersSliceState } from '../../store/offers/offersSlice';
 import { offersData } from './offersSlice';
@@ -74,9 +73,9 @@ describe('Reducer: OffersSliceState', () => {
     });
 
     it('should set new activeCity', () => {
-      expect(offersData.reducer(initialState, setCity(randomCity))).toEqual({
+      expect(offersData.reducer(initialState, setCity(cityNames[0]))).toEqual({
         ...initialState,
-        activeCity: randomCity,
+        activeCity: cityNames[0],
       });
     });
 

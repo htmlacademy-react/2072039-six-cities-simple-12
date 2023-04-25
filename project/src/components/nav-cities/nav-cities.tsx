@@ -4,7 +4,7 @@ import { setCity } from '../../store/offers/offersSlice';
 
 import { getActiveCity } from '../../store/offers/selectors';
 
-import Location from '../Location/Location';
+import Location from '../location/location';
 
 
 type NaveCitiesProps = {

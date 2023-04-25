@@ -8,13 +8,11 @@ import { AppRoute, Status } from '../../constants';
 import { getIsOffersLoading } from '../../store/offers/selectors';
 
 import Layout from './layout';
-import MainPage from '../../pages/MainPage/MainPage';
-import NotFoundPage from '../../pages/NotFoundPage/NotFoundPage';
-import LoginPage from'../../pages/LoginPage/LoginPage';
-import RoomPage from'../../pages/RoomPage/RoomPage';
-import Loader from '../Loader/Loader';
-import HistoryRouter from '../HistoryRoute/HistoryRoute';
-import browserHistory from '../../brouserHistory';
+import MainPage from '../../pages/main-page/main-page';
+import NotFoundPage from '../../pages/not-found-page/not-found-page';
+import LoginPage from'../../pages/login-page/login-page';
+import RoomPage from'../../pages/room-page/room-page';
+import Loader from '../loader/loader';
 
 
 function App(): JSX.Element {
@@ -28,28 +26,26 @@ function App(): JSX.Element {
 
   return (
     <HelmetProvider>
-      <HistoryRouter history={browserHistory}>
-        <Routes>
-          <Route path='/' element={<Layout /> }>
-            <Route
-              path={AppRoute.Main}
-              element={<MainPage />}
-            />
-            <Route
-              path={AppRoute.Room}
-              element={<RoomPage />}
-            />
-            <Route
-              path="*"
-              element={<NotFoundPage />}
-            />
-          </Route>
+      <Routes>
+        <Route path='/' element={<Layout /> }>
           <Route
-            path={AppRoute.Login}
-            element={<LoginPage />}
+            path={AppRoute.Main}
+            element={<MainPage />}
           />
-        </Routes>
-      </HistoryRouter>
+          <Route
+            path={AppRoute.Room}
+            element={<RoomPage />}
+          />
+          <Route
+            path="*"
+            element={<NotFoundPage />}
+          />
+        </Route>
+        <Route
+          path={AppRoute.Login}
+          element={<LoginPage />}
+        />
+      </Routes>
     </HelmetProvider>
   );
 }

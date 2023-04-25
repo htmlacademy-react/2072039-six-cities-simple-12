@@ -3,9 +3,9 @@ import cn from 'classnames';
 
 import { useAppDispatch } from '../../hooks';
 
-import { loginAction } from '../../store/apiActions';
+import { loginAction } from '../../store/api-actions';
 
-import { AuthData } from '../../types/authData';
+import { AuthData } from '../../types/auth-data';
 
 import styles from './login.module.css';
 

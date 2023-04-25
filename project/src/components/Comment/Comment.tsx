@@ -1,6 +1,7 @@
-import { useMemo } from 'react';
 import { Comment } from '../../types/comments';
+
 import { getPersentsFromNumber } from '../../utils/getPersentsFromNumber';
+import { getHumanizedDate } from '../../utils/getHumanizedDate';
 
 
 type CommentProps = {
@@ -9,8 +10,7 @@ type CommentProps = {
 
 function CommentItem({ comment }: CommentProps): JSX.Element {
   const { date, user } = comment;
-  const itemDate = new Date(date);
-  const monthName = useMemo(() => (itemDate.toLocaleString('en-EN', { month: 'long' })), []); // eslint-disable-line react-hooks/exhaustive-deps
+  const commentDate = getHumanizedDate(date);
 
   return (
     <li className="reviews__item">
@@ -38,9 +38,9 @@ function CommentItem({ comment }: CommentProps): JSX.Element {
         </p>
         <time
           className="reviews__time"
-          dateTime={`${itemDate.getFullYear()}-${itemDate.getMonth()}-${itemDate.getDate()}`}
+          dateTime={date}
         >
-          {monthName} {itemDate.getFullYear()}
+          {commentDate}
         </time>
       </div>
     </li>

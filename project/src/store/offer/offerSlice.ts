@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { NameSpace, Status } from '../../constants';
 
-import { loadOfferAction } from '../apiActions';
+import { loadOfferAction } from '../api-actions';
 
 import { Offer } from '../../types/offers';
 

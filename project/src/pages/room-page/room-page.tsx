@@ -18,17 +18,17 @@ import {
   loadNearOffersAction,
   loadOfferAction,
   loadRoomCommentsAction,
-} from '../../store/apiActions';
+} from '../../store/api-actions';
 
 import { getAuthorizationStatus } from '../../store/user/selectors';
 import { getIsOfferLoading, getOffer } from '../../store/offer/selectors';
 import { getNearbyOffers, getComments } from '../../store/roomInfo/selectors';
 
-import ReviewForm from '../../components/ReviewForm/ReviewForm';
-import Map from '../../components/Map/Map';
-import Loader from '../../components/Loader/Loader';
-import OffersList from '../../components/OffersList/OffersList';
-import Comment from '../../components/Comment/Comment';
+import ReviewForm from '../../components/review-form/review-form';
+import Map from '../../components/map/map';
+import Loader from '../../components/loader/loader';
+import OffersList from '../../components/offers-list/offers-list';
+import Comment from '../../components/comment/comment';
 
 
 function RoomPage() {

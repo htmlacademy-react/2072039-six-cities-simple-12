@@ -1,10 +1,10 @@
-import Logo from '../Logo/Logo';
-import AuthorizationPanel from '../AuthorizationPanel/AuthorizationPanel';
+import Logo from '../logo/logo';
+import AuthorizationPanel from '../authorization-panel/authorization-panel';
 
 
 function Header(): JSX.Element {
   return (
-    <header className="header">
+    <header className="header" data-testid="header">
       <div className="container">
         <div className="header__wrapper">
           <Logo />

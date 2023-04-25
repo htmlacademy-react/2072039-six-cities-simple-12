@@ -10,7 +10,7 @@ import { saveToken, dropToken } from '../services/token';
 
 import { Offers, Offer } from '../types/offers';
 import { AppDispatch, RootState } from '../types/state';
-import { AuthData } from '../types/authData';
+import { AuthData } from '../types/auth-data';
 import { User } from '../types/user';
 import { Comments, NewComment } from '../types/comments';
 
