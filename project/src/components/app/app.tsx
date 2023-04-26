@@ -12,7 +12,7 @@ import MainPage from '../../pages/main-page/main-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import LoginPage from'../../pages/login-page/login-page';
 import RoomPage from'../../pages/room-page/room-page';
-import Loader from '../loaders/loaders';
+import Loader from '../loader/loader';
 
 
 function App(): JSX.Element {

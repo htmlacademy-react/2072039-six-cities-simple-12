@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 
-import Logo from '../logos/logos';
+import Logo from '../logo/logo';
 import AuthorizationPanel from '../authorization-panel/authorization-panel';
 
 

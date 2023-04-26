@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 
-import Location from './locations';
+import Location from './location';
 import { cityNames } from '../../constants';
 import HistoryRouter from '../history-router/history-router';
 

@@ -12,7 +12,7 @@ import { getAuthorizationStatus } from '../../store/user/selectors';
 
 import { setCity } from '../../store/offers/offersSlice';
 
-import Logo from '../../components/logos/logos';
+import Logo from '../../components/logo/logo';
 import LoginForm from '../../components/login-form/login-form';
 
 

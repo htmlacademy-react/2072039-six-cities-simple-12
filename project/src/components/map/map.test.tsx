@@ -2,7 +2,7 @@ import { Provider } from 'react-redux';
 import { render, screen } from '@testing-library/react';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 
-import Map from './maps';
+import Map from './map';
 
 import { makeFakeOffers } from '../../mocks/mocks';
 

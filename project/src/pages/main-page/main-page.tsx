@@ -12,7 +12,7 @@ import MainEmptyPage from '../main-empty-page/main-empty-page';
 import OffersList from '../../components/offers-list/offers-list';
 import NavCities from '../../components/nav-cities/nav-cities';
 import SelectForm from '../../components/select-form/select-form';
-import Map from '../../components/maps/maps';
+import Map from '../../components/map/map';
 
 import { Offers, Offer } from '../../types/offers';
 
