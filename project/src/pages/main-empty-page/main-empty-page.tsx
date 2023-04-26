@@ -1,9 +1,15 @@
 import { cityNames } from '../../constants';
 
+import { useAppSelector } from '../../hooks';
+
+import { getActiveCity } from '../../store/offers/selectors';
+
 import NavCities from '../../components/nav-cities/nav-cities';
 
 
 function MainEmptyPage(): JSX.Element {
+  const activeCity = useAppSelector(getActiveCity);
+
   return (
     <div className="page page--gray page--main">
       <main className="page__main page__main--index page__main--index-empty">
@@ -16,7 +22,9 @@ function MainEmptyPage(): JSX.Element {
             <section className="cities__no-places">
               <div className="cities__status-wrapper tabs__content">
                 <b className="cities__status">No places to stay available</b>
-                <p className="cities__status-description">We could not find any property available at the moment in Dusseldorf</p>
+                <p className="cities__status-description">
+                  {`We could not find any property available at the moment in ${activeCity}`}
+                </p>
               </div>
             </section>
             <div className="cities__right-section"></div>
