@@ -6,7 +6,7 @@ import userEvent from '@testing-library/user-event';
 
 import HistoryRouter from '../history-router/history-router';
 
-import Logo from './logo';
+import Logo from './logos';
 
 
 const history = createMemoryHistory();

@@ -25,10 +25,10 @@ import { getIsOfferLoading, getOffer } from '../../store/offer/selectors';
 import { getNearbyOffers, getComments } from '../../store/roomInfo/selectors';
 
 import ReviewForm from '../../components/review-form/review-form';
-import Map from '../../components/map/map';
-import Loader from '../../components/loader/loader';
+import Map from '../../components/maps/maps';
+import Loader from '../../components/loaders/loaders';
 import OffersList from '../../components/offers-list/offers-list';
-import Comment from '../../components/comment/comment';
+import Comment from '../../components/comments/comments';
 
 
 function RoomPage() {

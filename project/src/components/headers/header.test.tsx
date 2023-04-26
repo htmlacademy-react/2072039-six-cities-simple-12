@@ -7,7 +7,7 @@ import { configureMockStore } from '@jedmao/redux-mock-store';
 import { AuthStatus, Status, NameSpace } from '../../constants';
 
 import HistoryRouter from '../history-router/history-router';
-import Header from './header';
+import Header from './headers';
 
 
 const mockStore = configureMockStore();

@@ -4,7 +4,7 @@ import { getHumanizedDate } from '../../utils/getHumanizedDate';
 
 import { makeFakeReview } from '../../mocks/mocks';
 
-import CommentItem from './comment';
+import CommentItem from './comments';
 
 
 describe('Component: Comment', () => {
